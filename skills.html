@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Skill Builds · Raider Field Manual</title>
+<meta name="description" content="PvP, PvE and Mix skill trees, point by point, plus where Expedition bonus points go.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">Frozen Trail skill tree · 76 points at level 75 · up to +15 from Expeditions</span>
+  <h1>Skill Builds</h1>
+  <p class="lede">Three builds, laid out point by point in the order to buy them as you level up. Each one also shows where your Expedition bonus points go. You earn 1 point per level and up to 5 per completed Expedition.</p>
+</div>
+
+<section>
+  <div class="grid">
+    <div class="card"><h3>How the tree works</h3><ul class="clean">
+      <li>Three branches: <span class="bdot C"></span>Conditioning, <span class="bdot M"></span>Mobility, <span class="bdot S"></span>Survival.</li>
+      <li><b>10 points</b> in a branch opens its first big node: pick <b>1 of 2</b>.</li>
+      <li><b>30 points</b> opens the capstones: your first pick. <b>40 points</b> allows a second pick. Max 2 of 3.</li>
+      <li>A node needs at least 1 point in the node before it on its path.</li></ul></div>
+    <div class="card"><h3>Respec</h3><ul class="clean">
+      <li><b>2,000 Coins per spent point</b>, whole tree only (76 points = 152,000).</li>
+      <li>A respec is the only way to swap a choice node.</li>
+      <li>Ignore guides from before October 2026. Frozen Trail removed 13 skills, including Calming Stroll, Carry The Momentum and Blast-Born.</li></ul></div>
+    <div class="card flag"><h3>Your points</h3>
+      <label>Level <input class="box" id="lvl" type="number" min="1" max="75" value="28" style="width:80px"></label>
+      <label>Expeditions done <select class="box" id="exp"><option>0</option><option>1</option><option selected>2</option><option>3</option></select></label>
+      <p id="pts" class="muted"></p></div>
+  </div>
+</section>
+
+<section>
+  <div class="filters" id="tabs" role="tablist"></div>
+  <div id="build"></div>
+</section>
+
+<section id="squad">
+  <h2>Squad role planner</h2>
+  <p>A trio works best when each person runs a different build. Pick a build for each player and the planner flags any gaps.</p>
+  <div class="grid" id="roles"></div>
+  <div id="gaps"></div>
+</section>
+
+<section>
+  <h2>Every skill</h2>
+  <div class="grid wide" id="ref"></div>
+</section>
+<p class="muted" style="font-size:.85rem">Rules and skill effects: ARC Raiders Wiki Skills page (post-2.0). Build splits adapted from LepreStore's Oct 2026 skill guide; the PvE build and the point order are our own. Respec cost and Sprinting On Fumes changes: patch notes 1.7.0 and 2.1.0.</p>
+
+<script>
+(() => {
+  const { esc } = RFM, B = ARC.builds, I = ARC.skillInfo;
+  const tabs = document.getElementById('tabs');
+  let cur = (location.hash.slice(1) && B.find(b => b.id === location.hash.slice(1))) ? location.hash.slice(1) : 'mix';
+  tabs.innerHTML = B.map(b => `<button class="chip" role="tab" data-id="${b.id}" id="${b.id}">${esc(b.name)} · ${b.split}</button>`).join('');
+  tabs.addEventListener('click', e => { const t = e.target.closest('button'); if (t) { cur = t.dataset.id; history.replaceState(null, '', '#' + cur); draw(); } });
+  ['lvl', 'exp'].forEach(id => document.getElementById(id).addEventListener('input', draw));
+
+  function have() { const l = Math.max(1, Math.min(75, +document.getElementById('lvl').value || 1)); const e = +document.getElementById('exp').value; return { base: l + 1, bonus: e * 5, total: l + 1 + e * 5 }; }
+  function draw() {
+    tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.id === cur));
+    const b = B.find(x => x.id === cur), h = have();
+    document.getElementById('pts').innerHTML = `You have about <b>${h.total}</b> points: ${h.base} from levels (1 starting point + 1 per level) and up to ${h.bonus} from Expeditions. Steps up to point ${h.total} are marked as reachable now.`;
+    let n = 0; const tally = { C: 0, M: 0, S: 0 };
+    const row = s => { const [br, sk, p, note] = s; const from = n + 1; n += p; tally[br] += p;
+      const cap = note.startsWith('★'); const ok = n <= h.total;
+      return `<li class="${cap ? 'cap' : ''}" style="${ok ? '' : 'opacity:.55'}"><span class="pts">pts ${from}${p > 1 ? '–' + n : ''}</span>
+        <span><span class="bdot ${br}"></span><b>${esc(sk)}</b> ×${p} <span class="muted">· ${I[br].name} ${tally[br]}</span>${note ? ` <span class="muted">— ${esc(note.replace('★ ', ''))}</span>` : ''}${ok ? '' : ''}</span></li>`; };
+    const main = b.steps.map(row).join('');
+    const baseTally = { ...tally };
+    let exp = '';
+    b.expedition.forEach(([label, steps]) => { exp += `<h4 style="margin-top:8px">${esc(label)}</h4><ol class="steps">${steps.map(row).join('')}</ol>`; });
+    document.getElementById('build').innerHTML = `<div class="grid wide" style="align-items:start">
+      <div class="card flag"><h2 style="font-size:1.8rem">${esc(b.name)}</h2><p>${esc(b.tagline)}</p>
+        <div class="tags"><span class="tag hi">${b.split}</span>${b.capstones.map(c => `<span class="tag">${esc(c)}</span>`).join('')}</div>
+        <p class="muted">${esc(b.why)}</p>
+        <p class="muted" style="font-size:.85rem">At 76 points: <span class="bdot C"></span>${baseTally.C} · <span class="bdot M"></span>${baseTally.M} · <span class="bdot S"></span>${baseTally.S}. If the game won't let you buy a step, put 1 point in the node that connects to it, then carry on.</p></div>
+      <div class="stack"><h3>Point by point (to 76)</h3><ol class="steps">${main}</ol>
+        <h3 style="margin-top:12px">Expedition bonus points</h3><p class="muted">Bonus points go in after the base 76. Each Expedition is worth up to 5.</p>${exp}</div></div>`;
+  }
+  draw();
+
+  // Squad planner
+  const KEY = 'rfm-squad'; let squad = ['mix', 'pvp', 'pve'];
+  try { squad = JSON.parse(localStorage.getItem(KEY)) || squad; } catch (e) {}
+  const roles = document.getElementById('roles');
+  function drawSquad() {
+    roles.innerHTML = squad.map((s, i) => `<div class="card"><label for="p${i}"><b>Player ${i + 1}</b></label>
+      <select class="box" id="p${i}" data-i="${i}">${B.map(b => `<option value="${b.id}"${b.id === s ? ' selected' : ''}>${esc(b.name)} (${b.split})</option>`).join('')}</select>
+      <p class="muted">${esc(B.find(b => b.id === s).tagline)}</p></div>`).join('');
+    const caps = squad.flatMap(s => B.find(b => b.id === s).capstones);
+    const has = c => caps.includes(c), msgs = [];
+    msgs.push(has('Security Breach') ? ['good', 'Someone can open Security Lockers (Security Breach).'] : ['bad', 'Nobody has Security Breach. Security Lockers hold augment blueprints, so one player should run The Mix or PvE Looter.']);
+    msgs.push(has('Sprinting On Fumes') ? ['good', 'Someone can scout and escape fast (Sprinting On Fumes).'] : ['warn', 'No one has Sprinting On Fumes. Your squad will be slow to reposition and escape.']);
+    msgs.push(has('Road Warrior') ? ['good', 'Road Warrior means extra ammo and Powercells from ARC.'] : ['warn', 'No Road Warrior. Ammo runs out faster on long ARC hunts.']);
+    if (new Set(squad).size === 1) msgs.push(['warn', 'All three players run the same build, so you share the same blind spots. Mixing builds covers more.']);
+    document.getElementById('gaps').innerHTML = `<div class="stack">${msgs.map(([k, m]) => `<div class="card"><span class="tag ${k}">${k === 'good' ? 'Covered' : k === 'bad' ? 'Gap' : 'Heads up'}</span> ${esc(m)}</div>`).join('')}</div>`;
+  }
+  roles.addEventListener('change', e => { squad[+e.target.dataset.i] = e.target.value; try { localStorage.setItem(KEY, JSON.stringify(squad)); } catch (x) {} drawSquad(); });
+  drawSquad();
+
+  document.getElementById('ref').innerHTML = Object.entries(I).map(([k, br]) => `<div class="card"><h3><span class="bdot ${k}"></span>${br.name}</h3><p class="muted">${esc(br.blurb)}</p>
+    <div class="scroll"><table><thead><tr><th>Skill</th><th>Max</th><th>Effect</th></tr></thead><tbody>${br.nodes.map(n => `<tr><td><b>${esc(n[0])}</b></td><td class="num">${esc(n[1])}</td><td>${esc(n[2])}</td></tr>`).join('')}</tbody></table></div></div>`).join('');
+})();
+</script>
+
+</main>
+</body>
+</html>

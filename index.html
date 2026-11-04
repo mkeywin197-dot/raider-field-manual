@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Raider Field Manual</title>
+<meta name="description" content="Unofficial ARC Raiders guide: guns, ARC, skill builds, maps, benches, Outpost and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">Unofficial ARC Raiders guide · patch 2.4.0 · Frozen Trail</span>
+  <h1>Raider Field Manual</h1>
+  <p class="lede">One place for everything you need between raids: every gun at every level, every ARC's hit points and weak points, skill builds point by point, maps, benches, the Outpost, quests, and what to keep or sell.</p>
+</div>
+<section>
+  <h2>Right now</h2>
+  <div class="grid">
+    <div class="card flag"><h3>Soul's Offering</h3><p>The Halloween project runs until <b>Nov 16</b>. Stage 3 gives a free Vulcano. <a href="guides.html#events">Full steps</a></p></div>
+    <div class="card"><h3>Patch 2.4.0</h3><p>Nov 3: Dead Eye Set and a Raider Tool skin fix. The last balance patch was 2.3.0 (Heavy Shield buff, deeper Emperor loot). <a href="guides.html#patches">Patch log</a></p></div>
+    <div class="card"><h3>Expeditions paused</h3><p>No wipe until early 2027, so anything you build now stays.</p></div>
+    <div class="card"><h3>PvE toggle decision</h3><p>Embark says it's coming in November after the October test.</p></div>
+  </div>
+</section>
+<section>
+  <h2>Sections</h2>
+  <div class="grid" id="secs"></div>
+</section>
+<script>
+const S = [['weapons.html','Guns','26 guns: stats, upgrade costs I–IV, and every Amplified Level V option.'],['arc.html','ARC','25 machines: HP, armor, weak points and how to kill each one, plus ammo vs armor.'],
+ ['skills.html','Skill builds','PvP, PvE and Mix, point by point, with Expedition bonus points and a squad role planner.'],['maps.html','Maps','High-loot areas, keys, exits and every map condition.'],
+ ['benches.html','Benches','Every bench level and its materials, plus a material shopping list.'],['outpost.html','Outpost','Unlock, build order, which room goes where, Research Station and storage layout.'],
+ ['quests.html','Quests','Every trader quest: objectives, items to keep and rewards.'],['items.html','Items','Keep, sell or recycle 500+ items, and what needs each one.'],
+ ['gear.html','Gear','Shields, augments, weapon mods, grenades, gadgets and ammo.'],['traders.html','Traders','Trader stock, Celeste\'s seed barters and Scrappy upgrades.'],
+ ['endgame.html','Endgame','Fallen Emperor, Frigate full clear, Queen, Matriarch and Harvester.'],['guides.html','Guides','Beginner guide, controller settings, events and the patch log.']];
+document.getElementById('secs').innerHTML = S.map(s => `<a class="card" href="${s[0]}" style="text-decoration:none"><h3>${s[1]}</h3><p class="muted">${s[2]}</p></a>`).join('');
+</script>
+
+</main>
+</body>
+</html>

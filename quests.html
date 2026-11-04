@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Quests · Raider Field Manual</title>
+<meta name="description" content="Every trader quest: objectives, required items and rewards.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">Trader quest lines · objectives · items to keep</span>
+  <h1>Quests</h1>
+  <p class="lede">Every quest grouped by trader, with its objectives, the items you hand in and the rewards. <b>Never sell a quest item.</b> A lost or sold item (like the Equatorial Sundial for "Clean Hands") can make the quest impossible to finish.</p>
+</div>
+<section>
+  <div class="note"><b>Frozen Trail quests not in this list yet:</b> Boarding the Frigate (board it, then deal 100 damage each to a Hydra, a Vaporizer and a Rocketeer), Disrupting the Frigate, Belly of the Beast (Shani: Fallen Emperor; rewards a Legendary Snap Hook, the Observatory Key and 10,000 XP), To the Skies (Apollo), When Everything Falls (its "Photograph Port A" step is bugged in 2.3). Their details are on the <a href="endgame.html">Endgame</a> page.</div>
+  <div class="filters"><input class="box" id="f" type="search" placeholder="Filter quests or items…" aria-label="Filter quests"><span id="traders" class="filters"></span></div>
+  <div id="list" class="stack"></div>
+</section>
+<p class="muted" style="font-size:.85rem">Source: RaidTheory arcraiders-data (MIT, data up to Aug 2026, the same data arctracker.io uses) and the ARC Raiders Wiki.</p>
+<script>
+(() => {
+  const { esc } = RFM, Q = (window.REF_QUESTS || {}).quests || [];
+  const traders = ['All', ...new Set(Q.map(q => q.trader))]; let t = 'All';
+  const tb = document.getElementById('traders');
+  tb.innerHTML = traders.map(x => `<button class="chip" aria-pressed="${x === 'All'}" data-t="${esc(x)}">${esc(x)}</button>`).join('');
+  tb.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; t = b.dataset.t; tb.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+  document.getElementById('f').addEventListener('input', draw);
+  const items = l => (l || []).map(i => `${esc(i.name)} ×${i.qty}`).join(', ');
+  function draw() {
+    const f = document.getElementById('f').value.toLowerCase();
+    const list = Q.filter(q => (t === 'All' || q.trader === t) && (!f || JSON.stringify(q).toLowerCase().includes(f)));
+    const by = {}; list.forEach(q => (by[q.trader] = by[q.trader] || []).push(q));
+    document.getElementById('list').innerHTML = Object.entries(by).map(([tr, qs]) => `<h2>${esc(tr)} <span class="tag">${qs.length}</span></h2>` + qs.map(q => `
+      <details class="item" id="${q.id}"><summary><span class="sum-title">${esc(q.name)}</span><span class="tags">
+        ${q.required && q.required.length ? '<span class="tag hi">Keep items</span>' : ''}${q.oneRound ? '<span class="tag warn">One raid</span>' : ''}${(q.maps || []).map(m => `<span class="tag">${esc(m.replace(/_/g, ' '))}</span>`).join('')}</span></summary>
+        <div class="body">${q.desc ? `<p class="muted">${esc(q.desc)}</p>` : ''}
+          <div><b>Objectives</b><ul class="clean">${(q.objectives || []).map(o => `<li>${esc(o)}</li>`).join('')}</ul></div>
+          <dl class="kv">${q.required && q.required.length ? `<dt>Hand in</dt><dd><b>${items(q.required)}</b> (don't sell these)</dd>` : ''}
+            <dt>Rewards</dt><dd>${items(q.rewards) || '—'}${q.xp ? ` · ${q.xp} XP` : ''}</dd>
+            ${q.prev && q.prev.length ? `<dt>After</dt><dd>${esc(q.prev.join(', '))}</dd>` : ''}${q.next && q.next.length ? `<dt>Unlocks</dt><dd>${esc(q.next.join(', '))}</dd>` : ''}</dl></div></details>`).join('')).join('') || '<p class="muted">No quests match.</p>';
+  }
+  draw();
+})();
+</script>
+
+</main>
+</body>
+</html>

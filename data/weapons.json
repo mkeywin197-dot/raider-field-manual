@@ -1,0 +1,1863 @@
+[
+ {
+  "id": "kettle",
+  "name": "Kettle",
+  "type": "Assault Rifle",
+  "rarity": "Common",
+  "ammo": "Light Ammo",
+  "mode": "Semi-Automatic",
+  "damage": "8.5",
+  "firerate": "30 (450 RPM)",
+  "range": "42.8",
+  "mag": "20",
+  "headshot": "2.5x",
+  "armorpen": "Very Weak (0.2x)",
+  "stability": "69.8",
+  "agility": "58.5",
+  "stealth": "26",
+  "weight": "7.0",
+  "reload": null,
+  "durability": [
+   "625",
+   "698",
+   "781",
+   "898"
+  ],
+  "sell": "840; 2,000; 3,000; 5,000",
+  "mods": "Muzzle Underbarrel Light-Mag Stock",
+  "quote": "Quick and accurate, but has low bullet velocity and takes a long time to reload.",
+  "craft": {
+   "cost": "6 Metal Parts, 8 Rubber Parts",
+   "station": "Workbench, Gunsmith 1",
+   "blueprint": "n"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "8 Metal Parts, 10 Plastic Parts",
+    "perks": "25% Increased Bullet Velocity; 13% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "10 Metal Parts, 1 Simple Gun Parts",
+    "perks": "50% Increased Bullet Velocity; 26% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "75% Increased Bullet Velocity; 40% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "X-Rounds",
+    "summary": "Adds an explosive compound to the projectile, dealing slightly increased damage to Raiders and significantly increased damage to ARC Armor plating.",
+    "effects": [
+     "+6.5 Base Damage",
+     "400% Increased Damage vs ARC Armor",
+     "15% Increased Vertical Recoil",
+     "15% Increased Horizontal Recoil",
+     "30% Reduced Bullet Velocity",
+     "20% Reduced Fire Rate",
+     "-4 Magazine Size"
+    ],
+    "research": "Embedded Blast Engineering",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": "Anti-Shield, Full-Auto, Magazine Mod"
+   },
+   {
+    "name": "Anti-Shield",
+    "summary": "Redistributes damage to prioritize breaking shields faster.",
+    "effects": [
+     "100% Increased Damage vs Raider Shields",
+     "-2 Base Damage"
+    ],
+    "research": "Shield Stess Testing",
+    "materials": "3 Assessor Matrix",
+    "requires": "",
+    "conflicts": "X-Rounds"
+   },
+   {
+    "name": "Full-Auto",
+    "summary": "Makes the weapon fully automatic, at the cost of accuracy and stability.",
+    "effects": [
+     "15% Increased Fire Rate",
+     "20% Reduced Headshot Damage Multiplier",
+     "30% Increased Vertical Recoil",
+     "30% Increased Horizontal Recoil",
+     "30% Increased Max Shot Dispersion"
+    ],
+    "research": "",
+    "materials": "3 Pneumatic Actuator",
+    "requires": "",
+    "conflicts": "X-Rounds"
+   }
+  ]
+ },
+ {
+  "id": "rattler",
+  "name": "Rattler",
+  "type": "Assault Rifle",
+  "rarity": "Common",
+  "ammo": "Medium Ammo",
+  "mode": "Fully-Automatic",
+  "damage": "9",
+  "firerate": "33.3 (500 RPM)",
+  "range": "56.2",
+  "mag": "12 | 16 | 20 | 24",
+  "headshot": "2.0x",
+  "armorpen": "Moderate (1x)",
+  "stability": "72.2",
+  "agility": "54.8",
+  "stealth": "14",
+  "weight": "6.0",
+  "reload": "",
+  "durability": [
+   "517",
+   "575",
+   "649",
+   "737"
+  ],
+  "sell": "1,750; 3,000; 5,000; 7,000",
+  "mods": "Muzzle Underbarrel Stock",
+  "quote": "A cheap offensive option, but has to be reloaded 2 bullets at a time.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "10 Metal Parts, 10 Rubber Parts",
+    "perks": "+4 Magazine Size; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "+8 Magazine Size; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "+12 Magazine Size; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "More Reload",
+    "summary": "Increases the number of bullets loaded at a time, reducing reload time.",
+    "effects": [
+     "+2 Bullets Loaded at a time"
+    ],
+    "research": "",
+    "materials": "2 Propellant Valve Assembly",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Drum Mag",
+    "summary": "Significantly increases magazine capacity by attaching a drum mag. However, it must still be reloaded a couple of bullets at time.",
+    "effects": [
+     "+40 Magazine Size",
+     "50% Increased Vertical Recoil",
+     "50% Increased Horizontal Recoil",
+     "30% Increased Max Shot Dispersion",
+     "30% Increased Base Dispersion",
+     "30% Increased ADS Dispersion",
+     "10% Reduced ADS Speed"
+    ],
+    "research": "Magazine Geometry 101",
+    "materials": "4 Pressure Regulator",
+    "requires": "More Reload",
+    "conflicts": ""
+   },
+   {
+    "name": "Incendiary Rounds",
+    "summary": "Adds an incendiary compound to the projectile, setting targets on fire when hit.",
+    "effects": [
+     "+5/s Burn Damage",
+     "+2s Burn Duration"
+    ],
+    "research": "Thermite-Tipped Rounds",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "arpeggio",
+  "name": "Arpeggio",
+  "type": "Assault Rifle",
+  "rarity": "Uncommon",
+  "ammo": "Medium Ammo",
+  "mode": "3-Round Burst",
+  "damage": "9.5",
+  "firerate": "18.3",
+  "range": "55.9",
+  "mag": "24",
+  "headshot": "2.0x",
+  "armorpen": "Moderate (1x)",
+  "stability": "84",
+  "agility": "57.3",
+  "stealth": "14",
+  "weight": "7.0",
+  "reload": "",
+  "durability": [
+   "729",
+   "810",
+   "911",
+   "1041"
+  ],
+  "sell": "5,500; 8,000; 11,500; 15,000",
+  "mods": "Muzzle Underbarrel Medium-Mag Stock",
+  "quote": "Has decent damage output and accuracy.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "4 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "20% Increased Fire Rate; 12.5% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "5 Mechanical Components, 1 Medium Gun Parts",
+    "perks": "40% Increased Fire Rate; 25% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "5 Mechanical Components, 1 Medium Gun Parts",
+    "perks": "60% Increased Fire Rate; 50% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "tempest",
+  "name": "Tempest",
+  "type": "Assault Rifle",
+  "rarity": "Epic",
+  "ammo": "Medium Ammo",
+  "mode": "Fully-Automatic",
+  "damage": "10",
+  "firerate": "36.7",
+  "range": "55.9",
+  "mag": "25",
+  "headshot": "1.5x",
+  "armorpen": "Moderate (0.8x)",
+  "stability": "78.9",
+  "agility": "46",
+  "stealth": "14",
+  "weight": "11.0",
+  "reload": null,
+  "durability": [
+   "950",
+   "?",
+   "?",
+   "1366"
+  ],
+  "sell": "13,000; 17,000; 22,000; 27,000",
+  "mods": "Muzzle Underbarrel Medium-Mag",
+  "quote": "Has moderate fire rate and accuracy.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "2 Advanced Mechanical Components, 1 Medium Gun Parts",
+    "perks": "16.6% Reduced Horizontal Recoil; 13% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "2 Advanced Mechanical Components, 3 Medium Gun Parts",
+    "perks": "33.3% Reduced Horizontal Recoil; 26% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 3 Medium Gun Parts",
+    "perks": "50% Reduced Horizontal Recoil; 40% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "bettina",
+  "name": "Bettina",
+  "type": "Assault Rifle",
+  "rarity": "Epic",
+  "ammo": "Heavy Ammo",
+  "mode": "Fully-Automatic",
+  "damage": "16",
+  "firerate": "28.7 (250 RPM)",
+  "range": "52.3",
+  "mag": "22",
+  "headshot": "2x",
+  "armorpen": "Strong (2x)",
+  "stability": "79.7",
+  "agility": "49.4",
+  "stealth": "14",
+  "weight": "11.0",
+  "reload": "4.5s | ? | ? | ?",
+  "durability": [
+   "759",
+   "?",
+   "?",
+   "1095"
+  ],
+  "sell": "8,000; 11,000; 14,000; 18,000",
+  "mods": "Muzzle Underbarrel Stock",
+  "quote": "Has slow fire rate and high damage output.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "5% Increased Fire Rate; 11.1% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "10% Increased Fire Rate; 22.2% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "15% Increased Fire Rate; 33.3% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "Bigger Mag",
+    "summary": "Increases the magazine capacity.",
+    "effects": [
+     "+15 Magazine Size"
+    ],
+    "research": "",
+    "materials": "3 Pressure Regulator",
+    "requires": "",
+    "conflicts": "Semi-Auto"
+   },
+   {
+    "name": "Semi-Auto",
+    "summary": "Makes the weapon semi-automatic.",
+    "effects": [
+     "+3 Base Damage",
+     "20% Reduced Max Shot Dispersion",
+     "20% Reduced Fire Rate"
+    ],
+    "research": "Trigger Reset Systems",
+    "materials": "3 Pneumatic Actuator",
+    "requires": "",
+    "conflicts": "Bigger Mag"
+   },
+   {
+    "name": "X-Rounds",
+    "summary": "Adds an explosive compound to the projectile, dealing slightly increased damage to Raiders and significantly increased damage to ARC Armor plating.",
+    "effects": [
+     "+3 Base Damage",
+     "25% Increased Damage vs ARC Armor",
+     "20% Increased Vertical Recoil",
+     "20% Increased Horizontal Recoil",
+     "30% Reduced Bullet Velocity",
+     "-4 Magazine Size"
+    ],
+    "research": "Embedded Blast Engineering",
+    "materials": "3 Fossilized Lightning",
+    "requires": "Semi-Auto",
+    "conflicts": "Bigger Mag"
+   }
+  ]
+ },
+ {
+  "id": "ferro",
+  "name": "Ferro",
+  "type": "Battle Rifle",
+  "rarity": "Common",
+  "ammo": "Heavy Ammo",
+  "mode": "Break-Action",
+  "damage": "40",
+  "firerate": "6.6",
+  "range": "53.1",
+  "mag": "1",
+  "headshot": "2.5x",
+  "armorpen": "Strong (1.5x)",
+  "stability": "78.1",
+  "agility": "32.1",
+  "stealth": "8",
+  "weight": "8.0",
+  "reload": null,
+  "durability": [
+   "152",
+   "169",
+   "190",
+   "217"
+  ],
+  "sell": "475; 1,000; 2,000; 2,900",
+  "mods": "Muzzle Underbarrel Stock",
+  "quote": "Packs a punch, but must be reloaded between every shot.",
+  "craft": {
+   "cost": "5 Metal Parts, 2 Rubber Parts",
+   "station": "Workbench, Gunsmith 1",
+   "blueprint": "n"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "7 Metal Parts",
+    "perks": "13% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "9 Metal Parts, 1 Simple Gun Parts",
+    "perks": "26% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "1 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "39% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "stiletto",
+  "name": "Stiletto",
+  "type": "Battle Rifle",
+  "rarity": "Uncommon",
+  "ammo": "Light Ammo",
+  "mode": "Semi-Automatic",
+  "damage": "19",
+  "firerate": "11.2",
+  "range": "51.8",
+  "mag": "10 | 12 | 14 | 16",
+  "headshot": "1.8",
+  "armorpen": "Weak (0.4x)",
+  "stability": "75.1",
+  "agility": "66.5",
+  "stealth": "20",
+  "weight": "7.0",
+  "reload": null,
+  "durability": [
+   "1009",
+   "1457"
+  ],
+  "sell": "3,000; 6,000; ?; 11.000",
+  "mods": "Muzzle Underbarrel Stock",
+  "quote": "Semi-automatic rifle with high accuracy, good handling and low initial recoil, but becomes harder to handle with sustained fire.",
+  "craft": {
+   "cost": "4 Mechanical Components, 4 Simple Gun Parts",
+   "station": "Gunsmith 1",
+   "blueprint": "y"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "10.5% Reduced Reload Time; 8.6% Increased Fire Rate; +10 Durability; +2 Magazine Size",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "21% Reduced Reload Time; 17.5% Increased Fire Rate; +20 Durability; +4 Magazine Size",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "4 Mechanical Components, 1 Light Gun Parts",
+    "perks": "31.6% Reduced Reload Time; 25.7% Increased Fire Rate; +30 Durability; +6 Magazine Size",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "renegade",
+  "name": "Renegade",
+  "type": "Battle Rifle",
+  "rarity": "Rare",
+  "ammo": "Medium Ammo",
+  "mode": "Lever-Action",
+  "damage": "35",
+  "firerate": "21",
+  "range": "68.8",
+  "mag": "8",
+  "headshot": "2.25x",
+  "armorpen": "Moderate (0.8x)",
+  "stability": "85.7",
+  "agility": "55.8",
+  "stealth": "16",
+  "weight": "10.0",
+  "reload": null,
+  "durability": [
+   "269",
+   "?",
+   "?",
+   "?"
+  ],
+  "sell": "7,000; 10,000; 13,000; 17,000",
+  "mods": "Muzzle Medium-Mag Stock",
+  "quote": "Has high damage output, accuracy, and headshot damage.",
+  "craft": {
+   "cost": "2 Advanced Mechanical Components, 3 Medium Gun Parts, 5 Oil",
+   "station": "Gunsmith 3",
+   "blueprint": "n"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "16.6% Reduced Dispersion Recovery Time; 25% Increased Fire Rate;  +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "33.3% Reduced Dispersion Recovery Time; 50% Increased Fire Rate;  +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "50% Reduced Dispersion Recovery Time; 75% Increased Fire Rate;  +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "More Reload",
+    "summary": "Increases the number of bullets loaded at a time, reducing reload time.",
+    "effects": [
+     "+1 Bullets Loaded at a time"
+    ],
+    "research": "",
+    "materials": "2 Propellant Valve Assembly",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Scoped",
+    "summary": "Adds a scope to the weapon, allowing it to be fired from a scoped view.",
+    "effects": [],
+    "research": "Top Mounted Optics Retrofittings",
+    "materials": "4 Fluted Rotor Core",
+    "requires": "",
+    "conflicts": "Magazine Mod"
+   }
+  ]
+ },
+ {
+  "id": "aphelion",
+  "name": "Aphelion",
+  "type": "Battle Rifle",
+  "rarity": "Legendary",
+  "ammo": "Energy Clip",
+  "mode": "2-Round Burst",
+  "damage": "25",
+  "firerate": "9",
+  "range": "76",
+  "mag": "10",
+  "headshot": "2.0x",
+  "armorpen": "Strong (2.5x)",
+  "stability": "88",
+  "agility": "39",
+  "stealth": "16",
+  "weight": "10.0",
+  "reload": "3.5s",
+  "durability": [
+   "1130"
+  ],
+  "sell": "27,500",
+  "mods": "Underbarrel Stock",
+  "quote": "Fires high velocity energy rounds.",
+  "craft": {
+   "cost": "3 Magnetic Accelerator, 3 Complex Gun Parts, 1 Matriarch Reactor",
+   "station": "Gunsmith 3",
+   "blueprint": "y"
+  },
+  "upgrades": [],
+  "amplified": [
+   {
+    "name": "Bigger Mag",
+    "summary": "Increases the magazine capacity.",
+    "effects": [
+     "+6 Magazine Size"
+    ],
+    "research": "",
+    "materials": "3 Pressure Regulator",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Charged Burst",
+    "summary": "Changes the firing mode to charge and release. The longer the charge is held, the more projectiles are fired upon release.",
+    "effects": [
+     "+2 Max Projectiles in Burst",
+     "+2 Magazine Size",
+     "-2.5 Base Damage",
+     "60% Increased Vertical Recoil",
+     "60% Increased Horizontal Recoil"
+    ],
+    "research": "High-Voltage Exposure",
+    "materials": "2 Queen Reactor",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Increased Burst",
+    "summary": "Increases the number of projectiles fired within a burst.",
+    "effects": [
+     "+2 Max Projectiles in Burst"
+    ],
+    "research": "Extended Burst Cycles",
+    "materials": "2 Pressure Regulator",
+    "requires": "Charged Burst",
+    "conflicts": ""
+   },
+   {
+    "name": "Incendiary Rounds",
+    "summary": "Adds an incendiary compound to the projectile, setting targets on fire when hit.",
+    "effects": [
+     "+5/s Burn Damage",
+     "+2s Burn Duration"
+    ],
+    "research": "Thermite-Tipped Rounds",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "stitcher",
+  "name": "Stitcher",
+  "type": "SMG",
+  "rarity": "Common",
+  "ammo": "Light Ammo",
+  "mode": "Fully-Automatic",
+  "damage": "6.5",
+  "firerate": "45.3 (680 RPM)",
+  "range": "42.1",
+  "mag": "20",
+  "headshot": "1.75x",
+  "armorpen": "Very Weak (0.2)",
+  "stability": "45.3",
+  "agility": "73.8",
+  "stealth": "19",
+  "weight": "5.0",
+  "reload": "",
+  "durability": [
+   "713",
+   "790",
+   "886",
+   "1024"
+  ],
+  "sell": "800; 2,000; 3,000; 5,000",
+  "mods": "Muzzle Underbarrel Light-Mag Stock",
+  "quote": "Deals good damage, but has quite a low fire-rate and can be hard to control.",
+  "craft": {
+   "cost": "8 Metal Parts, 4 Rubber Parts",
+   "station": "Workbench, Gunsmith 1",
+   "blueprint": "n"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "8 Metal Parts, 12 Rubber Parts",
+    "perks": "16.6% Reduced Horizontal Recoil; 13% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "10 Metal Parts, 1 Simple Gun Parts",
+    "perks": "33.3% Reduced Horizontal Recoil; 26% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "50% Reduced Horizontal Recoil; 40% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "canto",
+  "name": "Canto",
+  "type": "SMG",
+  "rarity": "Rare",
+  "ammo": "Medium Ammo",
+  "mode": "Fully-Automatic",
+  "damage": "6.5",
+  "firerate": "56.7",
+  "range": "51",
+  "mag": "18",
+  "headshot": "1.75x",
+  "armorpen": "Moderate (0.8x)",
+  "stability": "39.4",
+  "agility": "78.3",
+  "stealth": "24",
+  "weight": "4.0",
+  "reload": "2.5",
+  "durability": [
+   "784",
+   "?",
+   "?",
+   "?"
+  ],
+  "sell": "7,000",
+  "mods": "Muzzle Underbarrel Medium-Mag Stock",
+  "quote": "Fully automatic submachine gun with a larger caliber",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Mechanical Components, 2 Medium Gun Parts",
+    "perks": "15% Reduced Max Shot Dispersion; +2 Magazine Size; 14% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Mechanical Components, 2 Medium Gun Parts",
+    "perks": "30% Reduced Max Shot Dispersion; +4 Magazine Size; 29% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Mechanical Components, 2 Medium Gun Parts",
+    "perks": "45% Reduced Max Shot Dispersion; +6 Magazine Size; 43% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "Carbine Conversion",
+    "summary": "Repurposes the Canto as a carbine, greatly improving stability and accuracy at the cost of agility.",
+    "effects": [
+     "50% Reduced ADS Recoil",
+     "20% Reduced Max Shot Dispersion",
+     "20% Reduced Per-Shot Dispersion",
+     "20% Reduced Base Dispersion",
+     "10% Reduced Fire Rate",
+     "20% Increased Equip Time",
+     "20% Increased Unequip Time"
+    ],
+    "research": "",
+    "materials": "3 Propellant Valve Assembly",
+    "requires": "",
+    "conflicts": "Sprint Shooting, Stock Mod"
+   },
+   {
+    "name": "Sprint Shooting",
+    "summary": "Ergonomic fittings that allow the weapon to be comfortably fired while sprinting.",
+    "effects": [],
+    "research": "Mobile-Fire Grip Fittings",
+    "materials": "4 Fluted Rotor Core",
+    "requires": "",
+    "conflicts": "Carbine Conversion, Stock Mod"
+   },
+   {
+    "name": "Incendiary Rounds",
+    "summary": "Adds an incendiary compound to the projectile, setting targets on fire when hit.",
+    "effects": [
+     "+5/s Burn Damage",
+     "+2s Burn Duration"
+    ],
+    "research": "Thermite-Tipped Rounds",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "bobcat",
+  "name": "Bobcat",
+  "type": "SMG",
+  "rarity": "Epic",
+  "ammo": "Light Ammo",
+  "mode": "Fully-Automatic",
+  "damage": "6",
+  "firerate": "66.7",
+  "range": "44",
+  "mag": "20",
+  "headshot": "2.0x",
+  "armorpen": "Very Weak (0.2x)",
+  "stability": "45.9",
+  "agility": "73.1",
+  "stealth": "21",
+  "weight": "7.0",
+  "reload": "",
+  "durability": [
+   "1525",
+   "?",
+   "?",
+   "2185"
+  ],
+  "sell": "13,000; 17,000; 22,000; 27,000",
+  "mods": "Muzzle Underbarrel Light-Mag Stock",
+  "quote": "Has a high fire rate but low accuracy.",
+  "craft": {
+   "cost": "1 Magnetic Accelerator, 3 Light Gun Parts, 2 Exodus Modules",
+   "station": "Gunsmith 3",
+   "blueprint": "y"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "2 Advanced Mechanical Components, 1 Light Gun Parts",
+    "perks": "15% Reduced Max Shot Dispersion; 15% Reduced Horizontal Recoil; 13% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "2 Advanced Mechanical Components, 3 Light Gun Parts",
+    "perks": "30% Reduced Max Shot Dispersion; 30% Reduced Horizontal Recoil; 26% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 3 Light Gun Parts",
+    "perks": "50% Reduced Max Shot Dispersion; 45% Reduced Horizontal Recoil; 40% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "il_toro",
+  "name": "Il Toro",
+  "type": "Shotgun",
+  "rarity": "Uncommon",
+  "ammo": "Shotgun Ammo",
+  "mode": "Pump-Action",
+  "damage": "7\u00d79 (63)",
+  "firerate": "14 (38 RPM)",
+  "range": "20",
+  "mag": "5 | 6 | 7 | 8",
+  "headshot": "1.0x",
+  "armorpen": "Weak (0.5x)",
+  "stability": "80.6",
+  "agility": "61.1",
+  "stealth": "18",
+  "weight": "8.0",
+  "reload": null,
+  "durability": [
+   "136",
+   "151",
+   "170",
+   "194"
+  ],
+  "sell": "5,000; 7,000; 10,000; 13,000",
+  "mods": "Shotgun-Muzzle Underbarrel Shotgun-Mag Stock",
+  "quote": "Has a large bullet spread, sharp falloff, and high damage output.",
+  "craft": {
+   "cost": "5 Mechanical Components, 6 Simple Gun Parts",
+   "station": "Gunsmith 1",
+   "blueprint": "y"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "17.5% Increased Fire Rate; +1 Magazine Size; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "4 Mechanical Components, 1 Heavy Gun Parts",
+    "perks": "35% Increased Fire Rate; +2 Magazine Size; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "4 Mechanical Components, 1 Heavy Gun Parts",
+    "perks": "50% Increased Fire Rate; +3 Magazine Size; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "More Reload",
+    "summary": "Increases the number of bullets loaded at a time, reducing reload time.",
+    "effects": [
+     "+1 Shells Loaded at a time"
+    ],
+    "research": "",
+    "materials": "2 Propellant Valve Assembly",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Slug Rounds",
+    "summary": "Replaces the normal shotgun shells with a single large projectile that deals massive damage.",
+    "effects": [
+     "-8 Projectiles Per Shot",
+     "900% Increased Projectile Damage",
+     "200% Increased Damage vs ARC Armor (1.5x)",
+     "40% Reduced Base Dispersion",
+     "50% Reduced Bullet Velocity"
+    ],
+    "research": "Solid-Core Casting Tech",
+    "materials": "4 Turbine Compressor",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "vulcano",
+  "name": "Vulcano",
+  "type": "Shotgun",
+  "rarity": "Epic",
+  "ammo": "Shotgun Ammo",
+  "mode": "Semi-Automatic",
+  "damage": "49.5",
+  "firerate": "26.3",
+  "range": "26",
+  "mag": "6",
+  "headshot": "1.0x",
+  "armorpen": "Weak (0.5x)",
+  "stability": "68.6",
+  "agility": "70.3",
+  "stealth": "15",
+  "weight": "8.0",
+  "reload": null,
+  "durability": [
+   "181",
+   "200",
+   "226",
+   "257"
+  ],
+  "sell": "10,000; 13,000; 17,000; 22,000",
+  "mods": "Shotgun-Muzzle Underbarrel Shotgun-Mag Stock",
+  "quote": "Has good bullet spread but sharp falloff.",
+  "craft": {
+   "cost": "1 Magnetic Accelerator, 3 Heavy Gun Parts, 1 Exodus Modules",
+   "station": "Gunsmith 3",
+   "blueprint": "y"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "10% Increased Fire Rate; 13% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "2 Advanced Mechanical Components, 1 Heavy Gun Parts",
+    "perks": "20% Increased Fire Rate; 26% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 3 Heavy Gun Parts",
+    "perks": "30% Increased Fire Rate; 40% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "dolabra",
+  "name": "Dolabra",
+  "type": "Shotgun",
+  "rarity": "Legendary",
+  "ammo": "Energy Clip",
+  "mode": "Semi-Automatic",
+  "damage": "50 (Hipfire) | 40 (ADS)",
+  "firerate": "",
+  "range": "20 m (Hipfire) | 100 m (ADS)",
+  "mag": "8",
+  "headshot": "1.0x",
+  "armorpen": "Strong (1.5x)",
+  "stability": "",
+  "agility": "",
+  "stealth": "1",
+  "weight": "8.0",
+  "reload": "3.3",
+  "durability": [
+   "?"
+  ],
+  "sell": "27,500",
+  "mods": null,
+  "quote": "An experimental weapon that can either fire a wide short range blast, or be focused to fire a tight medium range beam of heat.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [],
+  "amplified": []
+ },
+ {
+  "id": "hairpin",
+  "name": "Hairpin",
+  "type": "Pistol",
+  "rarity": "Common",
+  "ammo": "Light Ammo",
+  "mode": "Slide-Action",
+  "damage": "20",
+  "firerate": "9",
+  "range": "38.6",
+  "mag": "8",
+  "headshot": "2.5x",
+  "armorpen": "Very Weak (0.2x)",
+  "stability": "90.9",
+  "agility": "78.3",
+  "stealth": "70",
+  "weight": "3.0",
+  "reload": null,
+  "durability": [
+   "274",
+   "304",
+   "342",
+   "391"
+  ],
+  "sell": "450; 1,000; 2,000; 2,900",
+  "mods": "Light-Mag",
+  "quote": "Has a built-in silencer. Great for stealth, but tricky in combat.",
+  "craft": {
+   "cost": "2 Metal Parts, 5 Plastic Parts",
+   "station": "Workbench, Gunsmith I",
+   "blueprint": "n"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "8 Metal Parts",
+    "perks": "10% Increased Fire Rate; 13% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "9 Metal Parts, 1 Simple Gun Parts",
+    "perks": "20% Increased Fire Rate; 26% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "1 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "30% Increased Fire Rate; 40% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "Incendiary Rounds",
+    "summary": "Adds an incendiary compound to the projectile, setting targets on fire when hit.",
+    "effects": [
+     "+5/s Burn Damage",
+     "+2s Burn Duration"
+    ],
+    "research": "Thermite-Tipped Rounds",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": "Semi-Auto, Tracker Rounds"
+   },
+   {
+    "name": "Semi-Auto",
+    "summary": "Makes the weapon semi-automatic.",
+    "effects": [
+     "150% Increased Fire Rate",
+     "20% Reduced Headshot Damage Multiplier",
+     "40% Increased Per-Shot Dispersion"
+    ],
+    "research": "Trigger Reset Systems",
+    "materials": "3 Pneumatic Actuator",
+    "requires": "",
+    "conflicts": "Incendiary Rounds, Tracker Rounds"
+   },
+   {
+    "name": "Sprint Shooting",
+    "summary": "Ergonomic fittings that allow the weapon to be comfortably fired while sprinting.",
+    "effects": [],
+    "research": "Mobile-Fire Grip Fittings",
+    "materials": "3 Fluted Rotor Core",
+    "requires": "Semi-Auto",
+    "conflicts": ""
+   },
+   {
+    "name": "Tracker Rounds",
+    "summary": "Replaces the bullets with tracker rounds that briefly reveal the position of targets they hit.",
+    "effects": [
+     "+5s Tracking Duration"
+    ],
+    "research": "",
+    "materials": "1 Matriarch Reactor",
+    "requires": "",
+    "conflicts": "Incendiary Rounds, Semi-Auto"
+   }
+  ]
+ },
+ {
+  "id": "burletta",
+  "name": "Burletta",
+  "type": "Pistol",
+  "rarity": "Uncommon",
+  "ammo": "Light Ammo",
+  "mode": "Semi-Automatic",
+  "damage": "10",
+  "firerate": "28",
+  "range": "41.7",
+  "mag": "12",
+  "headshot": "2.5\u00d7",
+  "armorpen": "Very Weak (0.2x)",
+  "stability": "74.5",
+  "agility": "84.4",
+  "stealth": "24",
+  "weight": "4.0",
+  "reload": null,
+  "durability": [
+   "656",
+   "729",
+   "820",
+   "937"
+  ],
+  "sell": "2,900; 5,000; 7,000; 10,000",
+  "mods": "Muzzle Light-Mag",
+  "quote": "Has decent damage output and accuracy.",
+  "craft": {
+   "cost": "3 Mechanical Components, 3 Simple Gun Parts",
+   "station": "Gunsmith 1",
+   "blueprint": "y"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "16.6% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "33.3% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "4 Mechanical Components, 1 Light Gun Parts",
+    "perks": "50% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "Burst Fire",
+    "summary": "Makes the weapon fire in a burst.",
+    "effects": [
+     "+2 Projectiles in Burst"
+    ],
+    "research": "Burst Assembly Recovery",
+    "materials": "2 Queen Reactor",
+    "requires": "",
+    "conflicts": "Full-Auto"
+   },
+   {
+    "name": "Increased Burst",
+    "summary": "Increases the number of projectiles fired within a burst.",
+    "effects": [
+     "+2 Projectiles in Burst",
+     "+3 Magazine Size"
+    ],
+    "research": "Extended Burst Cycles",
+    "materials": "2 Pressure Regulator",
+    "requires": "Burst Fire",
+    "conflicts": ""
+   },
+   {
+    "name": "Full-Auto",
+    "summary": "Makes the weapon fully automatic, at the cost of accuracy and stability.",
+    "effects": [
+     "60% Increased Fire Rate",
+     "-2 Base Damage",
+     "60% Reduced Headshot Damage Multiplier",
+     "50% Increased Vertical Recoil",
+     "50% Increased Horizontal Recoil",
+     "100% Increased Dispersion Recovery Time",
+     "50% Increased Base Dispersion",
+     "50% Increased ADS Dispersion"
+    ],
+    "research": "",
+    "materials": "3 Pneumatic Actuator",
+    "requires": "",
+    "conflicts": "Burst Fire"
+   },
+   {
+    "name": "Sprint Shooting",
+    "summary": "Ergonomic fittings that allow the weapon to be comfortably fired while sprinting.",
+    "effects": [],
+    "research": "Mobile-Fire Grip Fittings",
+    "materials": "4 Fluted Rotor Core",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "venator",
+  "name": "Venator",
+  "type": "Pistol",
+  "rarity": "Rare",
+  "ammo": "Medium Ammo",
+  "mode": "Semi-Automatic",
+  "damage": "16 (2x8)",
+  "firerate": "36.7",
+  "range": "48.4",
+  "mag": "10",
+  "headshot": "2x",
+  "armorpen": "Moderate (0.8x)",
+  "stability": "61.3",
+  "agility": "76.4",
+  "stealth": "12",
+  "weight": "5.0",
+  "reload": null,
+  "durability": [
+   "729",
+   "?",
+   "?",
+   "1041"
+  ],
+  "sell": "7,000; 10,000; 13,000; 17,000",
+  "mods": "Underbarrel Medium-Mag",
+  "quote": "Fires two shots at a time.",
+  "craft": {
+   "cost": "2 Advanced Mechanical Components, 3 Medium Gun Parts, 5 Magnet",
+   "station": "Gunsmith 2",
+   "blueprint": "y"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "13% Increased Fire Rate; 16% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "26% Increased Fire Rate; 33% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "40% Increased Fire Rate; 50% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "bantam",
+  "name": "Bantam",
+  "type": "Hand Cannon",
+  "rarity": "Uncommon",
+  "ammo": "Heavy Ammo",
+  "mode": "Double-Action",
+  "damage": "24",
+  "firerate": "23.3",
+  "range": "32.4",
+  "mag": "8",
+  "headshot": "1.5",
+  "armorpen": "Strong (1.5x)",
+  "stability": "55.1",
+  "agility": "72.9",
+  "stealth": "9",
+  "weight": "3",
+  "reload": null,
+  "durability": [
+   "1009"
+  ],
+  "sell": "3,800; ?; ?; ?",
+  "mods": "",
+  "quote": "Short-barrel revolver with varied fire rate, good handling and damage, but with low accuracy, control and range.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "14.7% Reduced Reload Time; 6.25% Reduced Dispersion Recovery Time; 8.1% Reduced Per-Shot Dispersion; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "29.4% Reduced Reload Time; 12.5% Reduced Dispersion Recovery Time; 16.2% Reduced Per-Shot Dispersion; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "4 Mechanical Components, 1 Heavy Gun Parts",
+    "perks": "44.1% Reduced Reload Time; 18.75% Reduced Dispersion Recovery Time; 24% Reduced Per-Shot Dispersion; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "anvil",
+  "name": "Anvil",
+  "type": "Hand Cannon",
+  "rarity": "Rare",
+  "ammo": "Heavy Ammo",
+  "mode": "Single-Action",
+  "damage": "40",
+  "firerate": "16.3",
+  "range": "50.2",
+  "mag": "6",
+  "headshot": "2.5\u00d7",
+  "armorpen": "Strong (1.5x)",
+  "stability": "75.2",
+  "agility": "69.1",
+  "stealth": "10",
+  "weight": "5.0",
+  "reload": null,
+  "durability": [
+   "188",
+   "?",
+   "?",
+   "?"
+  ],
+  "sell": "5,000; 7,000; 10,000; 13,000",
+  "mods": "Muzzle",
+  "quote": "Has high damage output and headshot damage, but slow handling.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "3 Mechanical Components, 1 Simple Gun Parts",
+    "perks": "6.5% Reduced Dispersion Recovery Time; 25% Increased Fire Rate; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Advanced Mechanical Components, 1 Heavy Gun Parts",
+    "perks": "12.5% Reduced Dispersion Recovery Time; 50% Increased Fire Rate; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 1 Heavy Gun Parts",
+    "perks": "18.75% Reduced Dispersion Recovery Time; 75% Increased Fire Rate; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "X-Rounds",
+    "summary": "Adds an explosive compound to the projectile, dealing slightly increased damage to Raiders and significantly increased damage to ARC Armor plating.",
+    "effects": [
+     "+5 Base Damage",
+     "33% Increased Damage vs ARC Armor",
+     "10% Reduced Headshot Damage Multiplier",
+     "30% Increased Vertical Recoil",
+     "30% Increased Horizontal Recoil",
+     "50% Reduced Bullet Velocity"
+    ],
+    "research": "Embedded Blast Engineering",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": "Anvil Splitter"
+   },
+   {
+    "name": "Anvil Splitter",
+    "summary": "Replaces the Anvil's bullets with rounds that split into four weaker projectiles.",
+    "effects": [
+     "+3 Projectiles Per Shot",
+     "30% Reduced Base Dispersion",
+     "90% Reduced Dispersion Recovery Time",
+     "40% Increased ADS Dispersion",
+     "70% Reduced Projectile Damage",
+     "40% Reduced Headshot Damage Multiplier"
+    ],
+    "research": "",
+    "materials": "3 Turbine Compressor",
+    "requires": "",
+    "conflicts": "X-Rounds"
+   }
+  ]
+ },
+ {
+  "id": "torrente",
+  "name": "Torrente",
+  "type": "LMG",
+  "rarity": "Rare",
+  "ammo": "Medium Ammo",
+  "mode": "Fully-Automatic",
+  "damage": "8",
+  "firerate": "58.3",
+  "range": "49.9",
+  "mag": "60 | 70 | 80 | 90",
+  "headshot": "2.0x",
+  "armorpen": "Moderate (1x)",
+  "stability": "74.2",
+  "agility": "37.7",
+  "stealth": "1",
+  "weight": "12.0",
+  "reload": "",
+  "durability": [
+   "1113",
+   "?",
+   "?",
+   "?"
+  ],
+  "sell": "7,000; 10,000; 13,000; 17,000",
+  "mods": "Muzzle Medium-Mag Stock",
+  "quote": "Has a large ammo capacity, but is only accurate while crouched.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "+10 Magazine Size; 15% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "+20 Magazine Size; 30% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "+30 Magazine Size; 45% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": []
+ },
+ {
+  "id": "osprey",
+  "name": "Osprey",
+  "type": "Sniper Rifle",
+  "rarity": "Rare",
+  "ammo": "Medium Ammo",
+  "mode": "Bolt-Action",
+  "damage": "45",
+  "firerate": "17.7",
+  "range": "80.3",
+  "mag": "8",
+  "headshot": "2.0x",
+  "armorpen": "Moderate (0.8x)",
+  "stability": "89.4",
+  "agility": "45.9",
+  "stealth": "12",
+  "weight": "7.0",
+  "reload": "",
+  "durability": [
+   "135",
+   "149",
+   "?",
+   "?"
+  ],
+  "sell": "7,000; 10,000; 13,000; 17,000",
+  "mods": "Muzzle Underbarrel Medium-Mag Stock",
+  "quote": "Has reliable damage output and accuracy.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "20% Reduced Bolt Action Time; 12.5% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "40% Reduced Bolt Action Time; 25% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 2 Medium Gun Parts",
+    "perks": "60% Reduced Bolt Action Time; 37.5% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "Tracker Rounds",
+    "summary": "Replaces the bullets with tracker rounds that briefly reveal the position of targets they hit.",
+    "effects": [
+     "+5s Tracking Duration",
+     "60% Reduced Bullet Velocity"
+    ],
+    "research": "",
+    "materials": "2 Matriarch Reactor",
+    "requires": "",
+    "conflicts": "Anti-Weak Point"
+   },
+   {
+    "name": "Anti-Weak Point",
+    "summary": "Deals increased damage to ARC weak points, but deals less damage to ARC armor plating.",
+    "effects": [
+     "100% Increased Damage vs ARC Weak Points"
+    ],
+    "research": "Targeted Component Trial",
+    "materials": "2 Assessor Matrix",
+    "requires": "",
+    "conflicts": "Tracker Rounds"
+   },
+   {
+    "name": "Ergonomic Bolt",
+    "summary": "Ergonomic bolt that allows the user to perform the bolt-action while scoped.",
+    "effects": [],
+    "research": "Action Economy",
+    "materials": "3 Fluted Rotor Core",
+    "requires": "",
+    "conflicts": "Stock Mod"
+   }
+  ]
+ },
+ {
+  "id": "jupiter",
+  "name": "Jupiter",
+  "type": "Sniper Rifle",
+  "rarity": "Legendary",
+  "ammo": "Energy Clip",
+  "mode": "Bolt-Action",
+  "damage": "60",
+  "firerate": "7.67",
+  "range": "71.7",
+  "mag": "5",
+  "headshot": "2.0x",
+  "armorpen": "Very Strong (3x)",
+  "stability": "73.5",
+  "agility": "39.2",
+  "stealth": "5",
+  "weight": "9.0",
+  "reload": null,
+  "durability": [
+   "222"
+  ],
+  "sell": "27,500",
+  "mods": null,
+  "quote": "A bolt-action sniper rifle with exceptional damage output and accuracy, but slow handling.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [],
+  "amplified": [
+   {
+    "name": "Bigger Mag",
+    "summary": "Increases the magazine capacity.",
+    "effects": [
+     "+5 Magazine Size"
+    ],
+    "research": "",
+    "materials": "3 Pressure Regulator",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Scoped",
+    "summary": "Adds a scope to the weapon, allowing it to be fired from a scoped view.",
+    "effects": [],
+    "research": "Top Mounted Optics Retrofittings",
+    "materials": "3 Fluted Rotor Core",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Ergonomic Bolt",
+    "summary": "Ergonomic bolt that allows the user to perform the bolt-action while scoped.",
+    "effects": [],
+    "research": "Action Economy",
+    "materials": "3 Fluted Rotor Core",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "rascal",
+  "name": "Rascal",
+  "type": "Special",
+  "rarity": "Rare",
+  "ammo": "Launcher Ammo",
+  "mode": "Break-Action",
+  "damage": "75",
+  "firerate": "13.7",
+  "range": "28.3",
+  "mag": "1",
+  "headshot": null,
+  "armorpen": "Very Strong (2.5x)",
+  "stability": "87.8",
+  "agility": "78.1",
+  "stealth": "1",
+  "weight": "4.0",
+  "reload": null,
+  "durability": [
+   "136",
+   "151",
+   "170",
+   "194"
+  ],
+  "sell": "7,000; 10,000; 13,000; 17,000",
+  "mods": null,
+  "quote": "Fires explosive projectiles that only detonate when hitting ARC.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "7% Reduced Reload Time; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "1 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "13% Reduced Reload Time; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "20% Reduced Reload Time; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "High Velocity",
+    "summary": "Increases the velocity of the projectile fired.",
+    "effects": [
+     "100% Increased Projectile Velocity",
+     "50% Reduced ADS Dispersion"
+    ],
+    "research": "",
+    "materials": "2 Pneumatic Actuator",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Sprint Shooting",
+    "summary": "Ergonomic fittings that allow the weapon to be comfortably fired while sprinting.",
+    "effects": [],
+    "research": "Mobile-Fire Grip Fittings",
+    "materials": "2 Fluted Rotor Core",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Incendiary Grenades",
+    "summary": "Adds an incendiary compound to the projectile, causing it to spread fire when detonating on ARC.",
+    "effects": [
+     "+11.25/s Burn Damage",
+     "+5s Burn Duration",
+     "40% Reduced Projectile Damage",
+     "15% Reduced Projectile Velocity"
+    ],
+    "research": "Compact Combustion Charges",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "hullcracker",
+  "name": "Hullcracker",
+  "type": "Special",
+  "rarity": "Epic",
+  "ammo": "Launcher Ammo",
+  "mode": "Pump-Action",
+  "damage": "100",
+  "firerate": "20.3",
+  "range": "38.9",
+  "mag": "5",
+  "headshot": "",
+  "armorpen": "Very Strong (2.5x)",
+  "stability": "97.2",
+  "agility": "67.9",
+  "stealth": "1",
+  "weight": "7.0",
+  "reload": "",
+  "durability": [
+   "216",
+   "?",
+   "?",
+   "308"
+  ],
+  "sell": "10,000; 13,000; 17,000; 22,000",
+  "mods": "Underbarrel Stock",
+  "quote": "Fires explosive projectiles that only detonate when hitting ARC.",
+  "craft": {
+   "cost": "1 Magnetic Accelerator, 3 Heavy Gun Parts, 1 Exodus Modules",
+   "station": "Gunsmith 3",
+   "blueprint": "y"
+  },
+  "upgrades": [
+   {
+    "level": 2,
+    "cost": "1 Advanced Mechanical Components, 2 Heavy Gun Parts",
+    "perks": "18% Increased Fire Rate; +10 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 3,
+    "cost": "2 Advanced Mechanical Components, 1 Heavy Gun Parts",
+    "perks": "35% Increased Fire Rate; +20 Durability",
+    "station": "Gunsmith 1"
+   },
+   {
+    "level": 4,
+    "cost": "2 Advanced Mechanical Components, 3 Heavy Gun Parts",
+    "perks": "53% Increased Fire Rate; +30 Durability",
+    "station": "Gunsmith 1"
+   }
+  ],
+  "amplified": [
+   {
+    "name": "Incendiary Grenades",
+    "summary": "Adds an incendiary compound to the projectile, causing it to spread fire when detonating on ARC.",
+    "effects": [
+     "+11.25/s Burn Damage",
+     "+5s Burn Duration",
+     "40% Reduced Projectile Damage",
+     "50% Reduced Projectile Velocity"
+    ],
+    "research": "Compact Combustion Charges",
+    "materials": "3 Fossilized Lightning",
+    "requires": "",
+    "conflicts": ""
+   },
+   {
+    "name": "Mag Reload",
+    "summary": "Removes the need to reload one projectile at a time.",
+    "effects": [],
+    "research": "",
+    "materials": "3 Propellant Valve Assembly",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ },
+ {
+  "id": "equalizer",
+  "name": "Equalizer",
+  "type": "Special",
+  "rarity": "Legendary",
+  "ammo": "Energy Clip",
+  "mode": "Fully-Automatic",
+  "damage": "8",
+  "firerate": "33.33",
+  "range": "",
+  "mag": "50",
+  "headshot": "2.0x",
+  "armorpen": "Very Strong (2.5x)",
+  "stability": "84.6",
+  "agility": "44.6",
+  "stealth": "",
+  "weight": "14.0",
+  "reload": null,
+  "durability": [
+   "3450"
+  ],
+  "sell": "27,500",
+  "mods": null,
+  "quote": "A high capacity experimental beam rifle.",
+  "craft": {
+   "cost": "",
+   "station": "",
+   "blueprint": ""
+  },
+  "upgrades": [],
+  "amplified": [
+   {
+    "name": "Ramping Damage",
+    "summary": "Gradually increases the Equalizer's damage while its laser remains in contact with a valid target.",
+    "effects": [],
+    "research": "Beam Resonance Tech",
+    "materials": "3 Queen Reactor",
+    "requires": "",
+    "conflicts": "Anti-Weak Point"
+   },
+   {
+    "name": "Anti-Weak Point",
+    "summary": "Deals increased damage to ARC weak points, but deals less damage to ARC armor plating.",
+    "effects": [
+     "67% Increased Damage vs ARC Weak Points",
+     "60% Reduced Damage vs ARC Armor"
+    ],
+    "research": "Targeted Component Trial",
+    "materials": "2 Assessor Matrix",
+    "requires": "",
+    "conflicts": "Ramping Damage"
+   },
+   {
+    "name": "Bigger Mag",
+    "summary": "Increases the magazine capacity.",
+    "effects": [
+     "+30 Magazine Size"
+    ],
+    "research": "",
+    "materials": "3 Pressure Regulator",
+    "requires": "",
+    "conflicts": ""
+   }
+  ]
+ }
+]

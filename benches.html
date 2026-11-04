@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Benches · Raider Field Manual</title>
+<meta name="description" content="Every Workshop bench level and the materials to build it, plus a material shopping list.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">8 stations · every level · every material</span>
+  <h1>Benches</h1>
+  <p class="lede">What each Workshop station costs to build and upgrade, and what each level lets you craft. Below that is a shopping list: tick the upgrades you're going for and it adds up every material you need.</p>
+</div>
+
+<section>
+  <div class="note"><b>Upgrade order:</b> start with the Workbench (free after your first raid). Then build whatever is blocking you: Medical Lab if you're short on healing, Gunsmith for the gun you want, Gear Bench for shields and augments. Each level-3 bench needs parts from a specific ARC, so plan those hunts.</div>
+  <div class="stack" id="benches"></div>
+</section>
+
+<section id="shopping">
+  <h2>Material shopping list</h2>
+  <p>Tick what you want to build. Your ticks are saved in this browser. Untick anything you've already built.</p>
+  <div class="grid wide" style="align-items:start">
+    <div class="card" id="picks"></div>
+    <div class="card flag"><h3>You need</h3><div id="totals"><p class="muted">Tick an upgrade to see totals.</p></div>
+      <button class="chip" id="clear" type="button">Clear all ticks</button></div>
+  </div>
+</section>
+<p class="muted" style="font-size:.85rem">Source: ARC Raiders Wiki Workshop and Outpost pages (patch 2.x). "Where to find" comes from the RaidTheory arcraiders-data item database (pre-Frozen Trail; new materials added by hand).</p>
+
+<script>
+(() => {
+  const { esc, slug } = RFM, Bn = ARC.benches;
+  const ITEMS = Object.fromEntries(((window.REF_ITEMS || {}).items || []).map(i => [i.name.toLowerCase(), i]));
+  const find = n => ITEMS[n.toLowerCase()] || ITEMS[n.toLowerCase() + 's'] || ITEMS[n.toLowerCase().replace(/s$/, '')];
+  const ARC_PART = /(Driver|Core|Cell|Pod|Vault|Trigger|Scanner|Pulse Unit|Burner|Targeter|Fragmenter|Inductor|Modulator)$/;
+  document.getElementById('benches').innerHTML = Object.entries(Bn).map(([name, levels]) => `<details class="item" id="${slug(name)}" open>
+    <summary><span class="sum-title">${esc(name)}</span><span class="tags"><span class="tag">${levels.length} level${levels.length > 1 ? 's' : ''}</span>${name === 'Research Station' ? '<span class="tag hi">Outpost</span>' : ''}</span></summary>
+    <div class="body"><div class="scroll"><table><thead><tr><th>Level</th><th>Materials</th><th>Unlocks crafting</th></tr></thead><tbody>
+      ${levels.map(l => `<tr><td class="name">${esc(name)} ${l.level}</td><td>${l.requires.map(r => { const n = r.replace(/^\d+\s+/, '');
+        return `<div>${esc(r)}${ARC_PART.test(n) ? ' <span class="tag hi">ARC part</span>' : ''}</div>`; }).join('')}</td>
+        <td class="muted">${esc(l.crafts.filter(Boolean).join(', ') || (name === 'Research Station' ? 'Research projects at this tier' : '—'))}</td></tr>`).join('')}
+    </tbody></table></div></div></details>`).join('');
+
+  // Shopping list: benches + Outpost rooms + Gunsmith IV are already inside benches.
+  const OPTS = [];
+  Object.entries(Bn).forEach(([name, levels]) => levels.forEach(l => { if (!/Round Played/.test(l.requires.join())) OPTS.push({ id: slug(name) + '-' + l.level, label: `${name} ${l.level}`, group: name, req: l.requires }); }));
+  ARC.outpost.rooms.forEach(([n, cost]) => OPTS.push({ id: 'room-' + n, label: `Outpost room ${n}`, group: 'Outpost', req: cost.split(', ') }));
+  OPTS.push({ id: 'sheltered', label: 'Outpost unlock (Sheltered Retreat)', group: 'Outpost', req: ['3 Planks', '5 Sheet Metal', '10 ARC Alloy', '3 Advanced Electrical Components'] });
+  const KEY = 'rfm-shop'; let picked = new Set();
+  try { picked = new Set(JSON.parse(localStorage.getItem(KEY)) || []); } catch (e) {}
+  const groups = [...new Set(OPTS.map(o => o.group))];
+  document.getElementById('picks').innerHTML = groups.map(g => `<div><h4>${esc(g)}</h4>${OPTS.filter(o => o.group === g).map(o =>
+    `<label class="check"><input type="checkbox" id="c-${o.id}" data-id="${o.id}"${picked.has(o.id) ? ' checked' : ''}><span>${esc(o.label)}<br><span class="muted" style="font-size:.85rem">${esc(o.req.join(', '))}</span></span></label>`).join('')}</div>`).join('');
+  function sum() {
+    const t = {};
+    OPTS.filter(o => picked.has(o.id)).forEach(o => o.req.forEach(r => { const m = r.match(/^(\d+)\s+(.+)$/); if (m) t[m[2]] = (t[m[2]] || 0) + +m[1]; }));
+    const rows = Object.entries(t).sort((a, b) => b[1] - a[1]);
+    document.getElementById('totals').innerHTML = rows.length ? `<div class="scroll"><table><thead><tr><th>Material</th><th>Qty</th><th>Where to find</th></tr></thead><tbody>
+      ${rows.map(([n, q]) => { const it = find(n); return `<tr><td><b>${esc(n)}</b>${ARC_PART.test(n) ? ' <span class="tag hi">ARC part</span>' : ''}</td><td class="num">${q}</td><td class="muted">${esc(it && it.foundIn ? it.foundIn : (ARC_PART.test(n) ? 'Salvage from the matching ARC' : '—'))}</td></tr>`; }).join('')}
+      </tbody></table></div><p class="muted" style="font-size:.85rem">${picked.size} upgrade${picked.size === 1 ? '' : 's'} ticked · ${rows.reduce((a, r) => a + r[1], 0)} items total</p>`
+      : '<p class="muted">Tick an upgrade to see totals.</p>';
+  }
+  document.getElementById('picks').addEventListener('change', e => { const id = e.target.dataset.id; if (!id) return;
+    e.target.checked ? picked.add(id) : picked.delete(id); try { localStorage.setItem(KEY, JSON.stringify([...picked])); } catch (x) {} sum(); });
+  document.getElementById('clear').addEventListener('click', () => { picked.clear(); document.querySelectorAll('#picks input').forEach(i => i.checked = false); try { localStorage.removeItem(KEY); } catch (x) {} sum(); });
+  sum();
+})();
+</script>
+
+</main>
+</body>
+</html>

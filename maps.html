@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maps · Raider Field Manual</title>
+<meta name="description" content="All 7 maps: high-loot areas, keys, extraction and map conditions.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="data/ref/conditions.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">7 maps · high-loot areas · keys · exits · conditions</span>
+  <h1>Maps</h1>
+  <p class="lede">Where the good loot is on every map, which keys open which rooms, how to leave, and what each map condition changes. <span class="tag hi">High</span> marks the top-tier areas, which are also the most contested.</p>
+</div>
+
+<section>
+  <div class="grid">
+    <div class="card"><h3>Plan every raid like this</h3><ol class="clean">
+      <li>Pick one goal: a material, a quest item or an ARC part.</li>
+      <li>First stop near your spawn, then one high-value stop only if it's quiet.</li>
+      <li>Mark two exits before you go into a hot area.</li>
+      <li>Leave when the goal is done. A small haul you extract beats a full bag on the ground.</li></ol></div>
+    <div class="card"><h3>Ways out</h3>
+      <dl class="kv"><dt>Elevator</dt><dd>Dam, Spaceport, Riven Tides. Loud, and you have to wait.</dd><dt>Metro</dt><dd>Buried City, Stella Montis.</dd>
+      <dt>Airshaft</dt><dd>Blue Gate, Stella Montis.</dd><dt>Raider Hatch</dt><dd>Needs a Hatch Key. Off during Frigate and Locked Gate, and doesn't exist on Pendola Pass.</dd>
+      <dt>Gondola</dt><dd>Pendola Pass only. Call it at a transceiver, then board where it lands.</dd></dl></div>
+    <div class="card flag"><h3>Map conditions</h3><p>They rotate on a schedule. Check what's live before you queue:</p>
+      <p><a href="https://arcraiders.com/map-conditions">arcraiders.com/map-conditions</a></p></div>
+  </div>
+</section>
+
+<section><div class="stack" id="maps"></div></section>
+
+<section id="conditions">
+  <h2>Map conditions</h2>
+  <p>Major conditions change the whole map. Minor ones add an event or a loot type. Difficulty runs from 1 to 5 using the wiki's ratings.</p>
+  <div class="scroll"><table><thead><tr><th>Condition</th><th>Type</th><th>What changes</th><th>Maps (difficulty)</th></tr></thead><tbody id="cond"></tbody></table></div>
+</section>
+<p class="muted" style="font-size:.85rem">Sources: ARC Raiders Wiki map pages (keys, conditions, difficulty), LepreStore's map guide (Oct 24, 2026), IGN and community notes on top loot spots, and official patch notes 2.0–2.2. Loot spawns vary, so these are good places to check, not guaranteed drops.</p>
+
+<script>
+(() => {
+  const { esc } = RFM, M = ARC.maps;
+  const R = (window.REF_CONDITIONS || {}), diff = R.normalDifficulty || {};
+  document.getElementById('maps').innerHTML = M.map(m => `<details class="item" id="${m.id}" open><summary><span class="sum-title">${esc(m.name)}</span>
+    <span class="tags"><span class="tag">Difficulty ${diff[m.name] ?? '?'}/5</span><span class="tag">${esc(m.exits)}</span></span></summary>
+    <div class="body"><p><b>Best for:</b> ${esc(m.best)}</p>
+      <div class="grid wide" style="align-items:start">
+        <div class="scroll"><table><thead><tr><th>Area</th><th>Why go</th><th>Tier</th></tr></thead><tbody>
+          ${m.pois.sort((a, b) => (a[2] === 'high' ? 0 : 1) - (b[2] === 'high' ? 0 : 1)).map(p => `<tr><td><b>${esc(p[0])}</b></td><td>${esc(p[1])}</td><td>${p[2] === 'high' ? '<span class="tag hi">High</span>' : '<span class="tag">Mid</span>'}</td></tr>`).join('')}
+        </tbody></table></div>
+        <div class="stack"><div class="card"><h4>Keys</h4><ul class="clean">${m.keys.map(k => `<li>${esc(k[0])} <span class="tag">${esc(k[1])}</span></li>`).join('')}</ul></div>
+          <div class="card"><h4>Tips</h4><ul class="clean">${m.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div></div>
+      </div></div></details>`).join('');
+  const mine = Object.fromEntries(ARC.conditions.map(c => [c[0].toLowerCase(), c]));
+  const list = (R.conditions && R.conditions.length) ? R.conditions : ARC.conditions.map(c => ({ name: c[0], category: c[1].toLowerCase(), description: c[2], maps: [] }));
+  document.getElementById('cond').innerHTML = list.sort((a, b) => (a.category > b.category ? 1 : -1)).map(c => {
+    const extra = mine[c.name.toLowerCase()];
+    const what = extra ? extra[2] : (c.notes || c.description);
+    return `<tr><td><b>${esc(c.name)}</b></td><td><span class="tag ${c.category === 'major' ? 'hi' : ''}">${esc(c.category)}</span></td><td>${esc(what)}</td>
+      <td>${(c.maps || []).map(x => `${esc(x.map)}${x.difficulty ? ' (' + x.difficulty + ')' : ''}`).join(', ') || '—'}</td></tr>`; }).join('');
+})();
+</script>
+
+</main>
+</body>
+</html>

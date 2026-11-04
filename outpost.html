@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Outpost · Raider Field Manual</title>
+<meta name="description" content="Outpost unlock, room upgrades, Research Station, which room goes where and storage layout.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">Frozen Trail · unlock at level 18</span>
+  <h1>Outpost</h1>
+  <p class="lede">The Outpost is your second base. Its real job is the <b>Research Station</b>, the road to Amplified Level V guns. It also gives you extra storage through furniture. Here's the full path, what every step costs, which room to build where, and a layout that frees up the most stash space.</p>
+</div>
+
+<section id="unlock">
+  <h2>Unlock: Sheltered Retreat</h2>
+  <ol class="steps" id="unlock-list"></ol>
+</section>
+
+<section id="order">
+  <h2>Build order</h2>
+  <p>The Research Station can never be a higher level than your Outpost, so alternate: room, station, room, station.</p>
+  <ol class="steps" id="order-list"></ol>
+</section>
+
+<section id="rooms">
+  <h2>Rooms: which goes where</h2>
+  <div class="grid">
+    <div class="card flag"><h3>The short answer</h3>
+      <p>All four room modules are <b>the same in game terms</b>. Each has 22 furniture slots and one wall spot for a weapon rack. They only differ in looks, so pick the ones you like.</p>
+      <p><b>Choices are permanent.</b> You can't swap a room module after it's built.</p></div>
+    <div class="card"><h3>Base room</h3><dl class="kv"><dt>Furniture</dt><dd>42 slots</dd><dt>Stations</dt><dd>8 slots</dd><dt>Weapon racks</dt><dd>6 wall spots (4 grouped, 2 in the bedroom area; one is easy to miss)</dd><dt>Doors</dt><dd>2, for modules</dd></dl></div>
+    <div class="card"><h3>Our pick</h3><ol class="clean">
+      <li><b>Room 2:</b> Chalet, the coziest.</li><li><b>Room 3:</b> Panoramic, one big open floor that's easy to arrange.</li>
+      <li><b>Room 4:</b> Studious, the big round hall with a skylight. It's reported to appear only for the last expansion, so leave that slot for it.</li></ol>
+      <p class="muted">Timeless works too. Players like its ladder loft, but its small sub-rooms are harder to fill.</p></div>
+  </div>
+  <div class="scroll"><table><thead><tr><th>Room</th><th>Look and feel</th><th>Available as</th></tr></thead><tbody id="mods"></tbody></table></div>
+  <div class="scroll"><table><thead><tr><th>Expansion</th><th>Materials</th><th>Unlocks</th></tr></thead><tbody id="roomcost"></tbody></table></div>
+</section>
+
+<section id="research">
+  <h2>Research Station</h2>
+  <div class="grid wide" style="align-items:start">
+    <div class="scroll"><table><thead><tr><th>Level</th><th>Materials</th></tr></thead><tbody id="rs"></tbody></table></div>
+    <div class="stack">
+      <div class="card"><h3>Research Points (RP)</h3><p>You earn RP by studying Research Items at the station. <b>Don't study the ones the next station level needs</b>: Paperbacks (I), Raider Logbooks (II), Exodus Handbooks (III) and ARC Data Modules (IV).</p>
+        <div class="scroll"><table><thead><tr><th>Item</th><th>RP</th></tr></thead><tbody id="rp"></tbody></table></div></div>
+      <div class="card"><h3>What research gets you</h3><ul class="clean"><li>Blueprints you haven't found yet (e.g. Bantam, Barricade Kit, some attachments)</li><li>Furniture designs (storage shelves at level II)</li><li>Amplified Research, which some Level V weapon options need</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="storage">
+  <h2>Storage layout</h2>
+  <div class="grid">
+    <div class="card flag"><h3>Weapon-heavy layout (36 guns)</h3><p>Put a <b>Sturdy Weapon Rack</b> (4 guns, 10 Sheet Metal) on every rack wall: 6 in the base room plus 1 per module = <b>9 racks, 36 guns</b> out of your stash.</p>
+      <p class="muted">Players report hitting 60 by moving loaded racks into Furniture Storage, but that's an unofficial trick and some report guns disappearing. Only store spare guns that way.</p></div>
+    <div class="card"><h3>Balanced layout</h3><p>Start with 2 Sturdy Weapon Racks and 1 <b>Sturdy Shelf</b> (24 slots). That's 8 guns and 24 trinkets. Add a Diner Cupboard (16) on a big floor spot and a Warehouse Dresser (5) on a small one.</p></div>
+    <div class="card"><h3>Rules</h3><ul class="clean"><li>Furniture slots are <b>extra</b> to your 328-slot stash, but only for eligible items: guns, trinkets and Scrappy food. Not ammo, keys or most materials.</li>
+      <li>Assign items with <b>Decorate</b> on the furniture piece.</li><li>Build storage first, decorate last. Furniture uses the same Planks and Sheet Metal as room upgrades.</li></ul></div>
+  </div>
+  <div class="scroll"><table><thead><tr><th>Furniture</th><th>Holds</th><th>Cost</th><th>How to get the design</th></tr></thead><tbody id="store"></tbody></table></div>
+</section>
+<p class="muted" style="font-size:.85rem">Sources: ARC Raiders Wiki Outpost and Workshop pages, ARC Tracker room data, MMOExp's Outpost storage guide (Oct 19, 2026), LepreStore's Outpost and Research Station guide (Oct 26, 2026), and AOEAH room descriptions. Studious being final-room-only is reported, not confirmed.</p>
+
+<script>
+(() => {
+  const { esc } = RFM, O = ARC.outpost;
+  document.getElementById('unlock-list').innerHTML = O.unlock.map((u, i) => `<li><span class="pts">Stage ${i + 1}</span><span><b>${esc(u[0])}</b><br>${esc(u[1])}<br><span class="muted">Reward: ${esc(u[2])}</span></span></li>`).join('');
+  document.getElementById('order-list').innerHTML = O.order.map((s, i) => `<li class="${i === O.order.length - 1 ? 'cap' : ''}"><span class="pts">Step ${i + 1}</span><span>${esc(s)}</span></li>`).join('');
+  document.getElementById('mods').innerHTML = O.modules.map(m => `<tr><td class="name">${esc(m[0])}</td><td>${esc(m[1])}</td><td>${esc(m[2])}</td></tr>`).join('');
+  document.getElementById('roomcost').innerHTML = O.rooms.map(r => `<tr><td class="name">Room ${r[0]}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('');
+  document.getElementById('rs').innerHTML = (ARC.benches['Research Station'] || []).map(l => `<tr><td class="name">Level ${l.level}</td><td>${esc(l.requires.join(', '))}</td></tr>`).join('');
+  document.getElementById('rp').innerHTML = O.rp.map(r => `<tr><td>${esc(r[0])}</td><td class="num">${r[1]}</td></tr>`).join('');
+  document.getElementById('store').innerHTML = O.storage.map(s => `<tr><td><b>${esc(s[0])}</b></td><td>${esc(s[1])}</td><td>${esc(s[2])}</td><td class="muted">${esc(s[3])}</td></tr>`).join('');
+})();
+</script>
+
+</main>
+</body>
+</html>

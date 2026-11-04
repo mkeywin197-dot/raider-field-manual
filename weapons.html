@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Guns · Raider Field Manual</title>
+<meta name="description" content="Every ARC Raiders gun: stats, upgrade costs for levels I–IV and Amplified Level V options.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">26 guns · levels I–IV plus Amplified V</span>
+  <h1>Guns</h1>
+  <p class="lede">Base stats for every gun, what each upgrade level costs and adds, and the Level V amplification options. Click a column to sort. Click a gun for its full upgrade path.</p>
+</div>
+
+<section>
+  <div class="filters" id="types" role="group" aria-label="Filter by class"></div>
+  <div class="scroll"><table id="tbl"><thead><tr>
+    <th class="sort" data-k="name">Gun</th><th class="sort" data-k="type">Class</th><th class="sort" data-k="rarity">Rarity</th><th class="sort" data-k="ammo">Ammo</th>
+    <th class="sort" data-k="damage">Damage</th><th class="sort" data-k="firerate">Fire rate</th><th class="sort" data-k="range">Range</th>
+    <th class="sort" data-k="mag">Mag (I→IV)</th><th class="sort" data-k="armorpen">ARC armor pen</th><th>Amp V</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="muted" style="font-size:.85rem">Damage is per bullet (per pellet volley for shotguns). Fire rate and range are the game's 0–100 style ratings. Upgrades mostly change fire rate, magazine size, reload, recoil and durability, not damage.</p>
+</section>
+
+<section id="amp-req">
+  <h2>Amplified Level V</h2>
+  <div class="grid">
+    <div class="card flag"><h3>What you need</h3><ul class="clean">
+      <li><b>Gunsmith IV</b>: 3 Radial Press, 3 Magnetic Accelerator, 1 Emperor Modulator (Fallen Emperor)</li>
+      <li><b>Research Station IV</b>: requires Outpost room 4</li>
+      <li>An <b>Amplification Module</b> matching the gun's rarity: Mk I (Common) → Mk V (Legendary). They come from the Fallen Emperor and Frigate cargo.</li>
+      <li>Some amplifications also need an <b>Amplified Research</b> project done first.</li></ul></div>
+    <div class="card"><h3>Rules</h3><ul class="clean">
+      <li>Every Level V gun gets <b>+70 max durability</b>, and most also get faster fire, reload or better dispersion recovery.</li>
+      <li><b>Once activated, an amplification can't be removed or changed.</b> Choose carefully.</li>
+      <li>Some require another one first (e.g. Rattler's Drum Mag needs More Reload); some conflict (e.g. X-Rounds and Full-Auto).</li>
+      <li>Repairs need <b>Amplified Fragments</b>. Downed Raiders drop Amplified guns at 10% durability.</li></ul></div>
+    <div class="card"><h3>Best picks</h3><ul class="clean">
+      <li><b>Anvil</b>: X-Rounds (strips ARC armor)</li><li><b>Il Toro</b>: Slug Rounds (a one-shot DMR)</li>
+      <li><b>Kettle</b>: Full-Auto (a cheap close-range shredder)</li><li><b>Rattler</b>: More Reload → Drum Mag (64 rounds)</li>
+      <li><b>Aphelion</b>: Charged Burst → Increased Burst + Incendiary</li><li><b>Renegade</b>: Scoped</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>Every gun</h2>
+  <div class="stack" id="list"></div>
+</section>
+<p class="muted" style="font-size:.85rem">Source: ARC Raiders Wiki weapon pages and the Amplified Weapons page (patch 2.x), parsed 2026-11-03. "?" means the wiki doesn't list it yet.</p>
+
+<script>
+(() => {
+  const { esc } = RFM, W = ARC.weapons;
+  const RANK = { Common: 1, Uncommon: 2, Rare: 3, Epic: 4, Legendary: 5 };
+  const num = v => parseFloat(String(v ?? '').replace(/,/g, '')) || 0;
+  const mags = w => String(w.mag || '').split('|').map(s => s.trim()).filter(Boolean);
+  let filter = 'All', key = 'name', dir = 1;
+
+  const types = ['All', ...new Set(W.map(w => w.type))];
+  const tb = document.getElementById('types');
+  tb.innerHTML = types.map(t => `<button class="chip" aria-pressed="${t === 'All'}" data-t="${esc(t)}">${esc(t)}</button>`).join('');
+  tb.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+    filter = b.dataset.t; tb.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+  document.querySelectorAll('th.sort').forEach(th => th.addEventListener('click', () => {
+    dir = key === th.dataset.k ? -dir : (['damage','firerate','range','mag'].includes(th.dataset.k) ? -1 : 1); key = th.dataset.k; draw(); }));
+
+  function val(w, k) {
+    if (k === 'rarity') return RANK[w.rarity] || 0;
+    if (k === 'mag') return num(mags(w).slice(-1)[0]);
+    if (['damage','firerate','range'].includes(k)) return num(w[k]);
+    return String(w[k] || '').toLowerCase();
+  }
+  function draw() {
+    const rows = W.filter(w => filter === 'All' || w.type === filter)
+      .sort((a, b) => { const x = val(a, key), y = val(b, key); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
+    document.querySelector('#tbl tbody').innerHTML = rows.map(w => `<tr>
+      <td class="name"><a href="#${w.id}">${esc(w.name)}</a></td><td>${esc(w.type)}</td><td>${esc(w.rarity)}</td><td>${esc((w.ammo||'').replace(' Ammo',''))}</td>
+      <td class="num">${esc(w.damage)}</td><td class="num">${esc((w.firerate||'').split(' ')[0])}</td><td class="num">${esc(w.range)}</td>
+      <td class="num">${esc(mags(w).join(' → ') || '—')}</td><td>${esc(w.armorpen || '—')}</td>
+      <td>${w.amplified.length ? '<span class="tag hi">Yes</span>' : '<span class="tag">No</span>'}</td></tr>`).join('');
+  }
+  draw();
+
+  const roman = ['I','II','III','IV'];
+  document.getElementById('list').innerHTML = W.map(w => {
+    const m = mags(w), d = w.durability || [], sell = String(w.sell || '').split(';').map(s => s.trim());
+    const lv = [{ level: 1, cost: w.craft && w.craft.cost ? `Craft: ${w.craft.cost}` : 'Found or crafted (blueprint)', perks: 'Base stats', station: w.craft && w.craft.station }].concat(w.upgrades);
+    const lvRows = lv.map((l, i) => `<tr><td class="name">${esc(w.name)} ${roman[l.level - 1]}</td>
+      <td>${esc(l.cost || '—')}${l.station ? `<br><span class="muted">${esc(l.station)}</span>` : ''}</td><td>${esc(l.perks || '—')}</td>
+      <td class="num">${esc(m[i] || m[0] || '—')}</td><td class="num">${esc(d[i] || '—')}</td><td class="num">${esc(sell[i] || '—')}</td></tr>`).join('');
+    const amp = w.amplified.length ? `<tr><td class="name">${esc(w.name)} V</td><td colspan="5">Amplification Module (matching rarity) + Gunsmith IV + Research Station IV. +70 durability. Choose from the options below.</td></tr>` : '';
+    const ampCards = w.amplified.map(a => `<div class="card">
+      <h4>${esc(a.name)}</h4><p class="muted">${esc(a.summary)}</p>
+      ${a.effects.length ? `<ul class="clean">${a.effects.map(e => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}
+      <dl class="kv">${a.materials ? `<dt>Cost</dt><dd>${esc(a.materials)}</dd>` : ''}${a.research ? `<dt>Research</dt><dd>${esc(a.research)}</dd>` : ''}
+      ${a.requires ? `<dt>Needs</dt><dd>${esc(a.requires)}</dd>` : ''}${a.conflicts ? `<dt>Blocks</dt><dd>${esc(a.conflicts)}</dd>` : ''}</dl></div>`).join('');
+    return `<details class="item" id="${w.id}"><summary><span class="sum-title">${esc(w.name)}</span>
+      <span class="tags"><span class="tag">${esc(w.type)}</span><span class="tag">${esc(w.rarity)}</span><span class="tag">${esc(w.ammo)}</span>${w.amplified.length ? '<span class="tag hi">Amplifiable</span>' : ''}</span></summary>
+      <div class="body">
+        ${w.quote ? `<p class="muted"><i>${esc(w.quote)}</i></p>` : ''}
+        <dl class="kv">
+          <dt>Firing mode</dt><dd>${esc(w.mode || '—')}</dd><dt>Damage</dt><dd>${esc(w.damage || '—')} · headshot ${esc(w.headshot || '—')}</dd>
+          <dt>Fire rate</dt><dd>${esc(w.firerate || '—')}</dd><dt>Range</dt><dd>${esc(w.range || '—')}</dd>
+          <dt>ARC armor</dt><dd>${esc(w.armorpen || '—')}</dd><dt>Stability / agility / stealth</dt><dd>${esc(w.stability || '?')} / ${esc(w.agility || '?')} / ${esc(w.stealth || '?')}</dd>
+          <dt>Weight</dt><dd>${esc(w.weight || '—')}</dd><dt>Mod slots</dt><dd>${esc(w.mods || 'None')}</dd>
+        </dl>
+        <div class="scroll"><table><thead><tr><th>Level</th><th>Cost to reach</th><th>Adds (total vs. level I)</th><th>Mag</th><th>Durability</th><th>Sells for</th></tr></thead>
+          <tbody>${lvRows}${amp}</tbody></table></div>
+        ${ampCards ? `<h3>Level V amplifications</h3><div class="grid">${ampCards}</div>` : `<p class="muted">No Level V for this gun yet.</p>`}
+      </div></details>`;
+  }).join('');
+})();
+</script>
+
+</main>
+</body>
+</html>

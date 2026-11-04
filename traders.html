@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Traders · Raider Field Manual</title>
+<meta name="description" content="What each trader sells, Celeste&#x27;s barters and Scrappy upgrades.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="data/ref/traders.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">Speranza · Apollo · Celeste · Lance · Shani · Tian Wen · Scrappy</span>
+  <h1>Traders</h1>
+  <p class="lede">What each trader sells and for how much, Celeste's seed barters, and what Scrappy the rooster needs at each level.</p>
+</div>
+<section>
+  <div class="grid">
+    <div class="card"><h3>Who's who</h3><dl class="kv"><dt>Apollo</dt><dd>Quick-use items and explosives</dd><dt>Celeste</dt><dd>Barters for Assorted Seeds; runs the Outpost story</dd><dt>Lance</dt><dd>Shields and augments</dd><dt>Shani</dt><dd>Utility gear, flares, Cameras</dd><dt>Tian Wen</dt><dd>Weapons, ammo and mods</dd></dl></div>
+    <div class="card flag"><h3>Seeds are money</h3><p>Celeste trades basic materials (Chemicals, Fabric, Metal Parts, Planks, Sheet Metal and more) for <b>Assorted Seeds</b>. It's the easiest way to fill a shortfall for the Outpost unlock without another raid.</p></div>
+    <div class="card"><h3>Scrappy</h3><p>Your rooster gathers basic materials while you're out on raids. Empty him after every raid and feed him upgrades:</p><ol class="clean" id="scrappy"></ol></div>
+  </div>
+  <div class="filters" id="tabs"></div>
+  <div id="trader"></div>
+</section>
+<p class="muted" style="font-size:.85rem">Source: RaidTheory arcraiders-data (MIT, trader data up to Aug 2026). Stock changes with your trader level and with patches, so check in game.</p>
+<script>
+(() => {
+  const { esc } = RFM, T = (window.REF_TRADERS || {}); let cur = Object.keys(T.traders || {})[0];
+  document.getElementById('scrappy').innerHTML = (T.scrappy || []).map(l => `<li><b>Level ${l.level}</b>: ${l.needs.length ? l.needs.map(n => `${esc(n.name)} ×${n.qty}`).join(', ') : 'starting level'}</li>`).join('');
+  const tb = document.getElementById('tabs');
+  tb.innerHTML = Object.keys(T.traders || {}).map(n => `<button class="chip" data-t="${esc(n)}">${esc(n)}</button>`).join('');
+  tb.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { cur = b.dataset.t; draw(); } });
+  const cost = c => Object.entries(c || {}).map(([n, q]) => `${Number(q).toLocaleString()} ${esc(n)}`).join(' + ');
+  function draw() {
+    tb.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.t === cur));
+    const tr = T.traders[cur] || { sells: [], barter: [] };
+    document.getElementById('trader').innerHTML = `<div class="grid wide" style="align-items:start">
+      <div class="scroll"><table><thead><tr><th>Sells</th><th>Type</th><th>Price</th><th>Limit</th><th>Trader level</th></tr></thead><tbody>
+        ${tr.sells.map(s => `<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.type || '')}</td><td class="num">${cost(s.cost)}</td><td class="num">${s.limit ?? '—'}</td><td class="num">${s.level ?? '—'}</td></tr>`).join('') || '<tr><td colspan="5" class="muted">No items listed.</td></tr>'}</tbody></table></div>
+      ${tr.barter && tr.barter.length ? `<div class="scroll"><table><thead><tr><th>You get</th><th>You pay</th><th>Daily limit</th></tr></thead><tbody>
+        ${tr.barter.map(b => `<tr><td><b>${esc(b.get)}</b> ×${b.qty}</td><td>${esc(b.pay)} ×${b.payQty}</td><td>${b.daily ?? '—'}</td></tr>`).join('')}</tbody></table></div>` : ''}</div>`;
+  }
+  draw();
+})();
+</script>
+
+</main>
+</body>
+</html>

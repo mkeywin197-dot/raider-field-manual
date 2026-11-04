@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Items · Raider Field Manual</title>
+<meta name="description" content="Keep, sell or recycle: every item, what it is worth and what needs it.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">Keep, sell or recycle</span>
+  <h1>Items</h1>
+  <p class="lede">Can I sell this? Search any item to see its sell price, what it recycles into, and every quest, bench, project or Outpost upgrade that needs it.</p>
+</div>
+<section>
+  <div class="grid">
+    <div class="card"><span class="tag hi">Keep</span><p>Something you'll need needs it: a quest, bench, project or Outpost upgrade. Hold on to the quantity listed.</p></div>
+    <div class="card"><span class="tag good">Use</span><p>Gear you equip or craft with: weapons, mods, shields, quick-use items, ammo.</p></div>
+    <div class="card"><span class="tag">Sell</span><p>Nothing needs it, so sell for Coins. In this data, recycling never pays more than selling.</p></div>
+    <div class="card"><span class="tag warn">Expedition</span><p>Only Expedition projects use it, and Expeditions are paused until early 2027. You can sell it for now.</p></div>
+  </div>
+  <div class="filters"><input class="box" id="f" type="search" placeholder="Search items…" aria-label="Search items"><select class="box" id="v"><option value="">Any verdict</option><option>Keep</option><option>Use</option><option>Sell</option><option>Expedition</option></select><select class="box" id="ty"></select></div>
+  <div class="scroll"><table><thead><tr><th>Item</th><th>Verdict</th><th>Type</th><th>Rarity</th><th>Sells</th><th>Recycles into</th><th>Needed for</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <p class="muted" id="count" style="font-size:.85rem"></p>
+</section>
+<p class="muted" style="font-size:.85rem">Source: RaidTheory arcraiders-data (MIT, data up to Aug 2026). Frozen Trail materials and Soul's Offering needs were added from the ARC Raiders Wiki. Values may have shifted in 2.x patches.</p>
+<script>
+(() => {
+  const { esc } = RFM, I = ((window.REF_ITEMS || {}).items || []).slice().sort((a, b) => a.name.localeCompare(b.name));
+  const ty = document.getElementById('ty');
+  ty.innerHTML = '<option value="">Any type</option>' + [...new Set(I.map(i => i.type))].sort().map(t => `<option>${esc(t)}</option>`).join('');
+  const cls = { Keep: 'hi', Use: 'good', Sell: '', Expedition: 'warn' };
+  ['f', 'v', 'ty'].forEach(id => document.getElementById(id).addEventListener('input', draw));
+  if (location.hash) { const it = I.find(i => i.id === location.hash.slice(1)); if (it) document.getElementById('f').value = it.name; }
+  function draw() {
+    const f = document.getElementById('f').value.toLowerCase(), v = document.getElementById('v').value, t = ty.value;
+    const rows = I.filter(i => (!f || i.name.toLowerCase().includes(f)) && (!v || i.verdict === v) && (!t || i.type === t));
+    document.getElementById('rows').innerHTML = rows.slice(0, 400).map(i => `<tr id="${i.id}"><td><b>${esc(i.name)}</b></td>
+      <td><span class="tag ${cls[i.verdict] || ''}">${esc(i.verdict)}</span></td><td>${esc(i.type)}</td><td>${esc(i.rarity || '')}</td>
+      <td class="num">${i.value != null ? i.value.toLocaleString() : '—'}</td>
+      <td>${i.recycles && Object.keys(i.recycles).length ? Object.entries(i.recycles).map(([n, q]) => `${esc(n)} ×${q}`).join(', ') : '—'}</td>
+      <td>${(i.needed || []).map(n => `<div>${esc(n.what)} ×${n.qty}</div>`).join('') || '—'}</td></tr>`).join('');
+    document.getElementById('count').textContent = `${rows.length} of ${I.length} items${rows.length > 400 ? ' (showing first 400, so narrow your search)' : ''}`;
+  }
+  draw();
+})();
+</script>
+
+</main>
+</body>
+</html>

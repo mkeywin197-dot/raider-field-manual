@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ARC Enemies · Raider Field Manual</title>
+<meta name="description" content="Every ARC machine: hit points, armor, weak points and how to kill it.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="data/guides.js"></script>
+<script src="data/weapons.js"></script>
+<script src="data/arc.js"></script>
+<script src="data/benches.js"></script>
+<script src="data/ref/quests.js"></script>
+<script src="data/ref/items.js"></script>
+<script src="data/ref/ammo.js"></script>
+<script src="assets/app.js"></script>
+<main>
+<div class="page-head">
+  <span class="eyebrow">25 machines · hit points, armor and weak points</span>
+  <h1>ARC Enemies</h1>
+  <p class="lede">The rule that beats almost every ARC: <b>glowing yellow parts are weak points</b>, red on the bosses. Hit thrusters on flying ARC, and leg joints and back canisters on walkers. Armored ARC need heavy ammo or explosives.</p>
+</div>
+
+<section>
+  <div class="filters" id="armor" role="group" aria-label="Filter by armor"></div>
+  <div class="scroll"><table id="tbl"><thead><tr>
+    <th class="sort" data-k="name">ARC</th><th class="sort" data-k="health">HP</th><th class="sort" data-k="armor">Armor</th><th>Shoot here</th><th>Main attack</th><th>Quick kill</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="muted" style="font-size:.85rem">HP is the wiki's community-measured figure. The Queen is listed at 23,000. A "~" means approximate, and "?" means nobody has measured it yet.</p>
+</section>
+
+<section id="penetration">
+  <h2>Ammo vs ARC armor</h2>
+  <p>Each gun's ammo sets how well it cuts through ARC armor. Bring heavy ammo, launchers or energy weapons for armored ARC (Bastion, Bombardier, Leaper, Queen), and use light or medium ammo on flyers' thrusters.</p>
+  <div class="grid" id="pen"></div>
+</section>
+
+<section>
+  <h2>Every machine</h2>
+  <div class="stack" id="list"></div>
+</section>
+<p class="muted" style="font-size:.85rem">Source: ARC Raiders Wiki ARC pages (HP, armor, weak points, combat tips), plus tips from official Embark posts and community guides. Checked 2026-11-03.</p>
+
+<script>
+(() => {
+  const { esc } = RFM, A = ARC.arc;
+  const QUICK = {
+    tick: 'Dodge roll as soon as it latches on. Any gun kills it.', pop: 'Climb out of reach, or roll over it to bait the blast.',
+    snitch: 'Kill it fast or it calls 2 Wasps and a Hornet.', spotter: 'Kill the Spotters first to blind the Bombardier.',
+    wasp: 'Shoot the thrusters to knock it out of the air.', hornet: 'Rear thrusters; the front is armored. Roll when it signals its stun.',
+    firefly: 'Shoot the yellow fuel tank. A Seeker Grenade knocks it down.', fireball: 'One heavy round into the core when it opens to attack.',
+    comet: 'Sidestep before it blows. Heavy ammo or a grenade.', turret: 'Bait its burst, then about 2 heavy rounds.',
+    sentinel: 'Sniper on high ledges. Shoot the capsule on its arm.', rocketeer: 'Thrusters and scanner. Roll through the missiles.',
+    vaporizer: 'Throw anything to bait the shield, then explosives during the cooldown. Hit the underside thrusters.',
+    leaper: 'Hide in a doorway it can\'t fit through, then hit the leg joints and eye. Stuns leave it helpless.',
+    arc_surveyor: 'Stun it; the core shows while its laser fires. It runs.', shredder: 'Thrusters with heavy ammo or a Hullcracker. Always fight from cover.',
+    arc_turbine: 'Crouch or stand still near its mines. Shoot the spinning parts once it lands.',
+    bastion: 'When it screeches, break line of sight (3-second gatling burst). Kneecaps and the rear canister; a Deadline on the canister kills it.',
+    bombardier: 'Spotters first, then leg joints and the rear canister. Stay out of close range (shockwave).',
+    bully: 'Get into cover it can\'t reach. Wolfpacks. Legs, and the head while it shoots.', skulker: 'Comes in groups and always fires at least 3 shots. Don\'t stand on it.',
+    hydra: 'Three-section turret. Hit the back weak points with a Hullcracker; a Photoelectric Cloak lets you skip it.',
+    queen: 'Strip the armor plates, then the red core and leg joints. The best loot is in the legs.',
+    matriarch: 'Same weak points as the Queen, but it summons ARC. Clear the adds first. Bring a full squad.',
+    arc_reclaimer: 'Disrupt it with the Raider Tool to ride it up to the Frigate.'
+  };
+  const hp = a => parseFloat(String(a.health || '').replace(/[~,]/g, '')) || 0;
+  let filter = 'All', key = 'health', dir = 1;
+  const armors = ['All', ...new Set(A.map(a => a.armor || 'Unknown'))];
+  const fb = document.getElementById('armor');
+  fb.innerHTML = armors.map(t => `<button class="chip" aria-pressed="${t === 'All'}" data-t="${esc(t)}">${esc(t)} armor</button>`).join('').replace('All armor', 'All');
+  fb.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; filter = b.dataset.t;
+    fb.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+  document.querySelectorAll('th.sort').forEach(th => th.addEventListener('click', () => { dir = key === th.dataset.k ? -dir : 1; key = th.dataset.k; draw(); }));
+  function draw() {
+    const rows = A.filter(a => filter === 'All' || (a.armor || 'Unknown') === filter).sort((a, b) => {
+      const x = key === 'health' ? hp(a) : String(a[key] || '').toLowerCase(), y = key === 'health' ? hp(b) : String(b[key] || '').toLowerCase();
+      return (x > y ? 1 : x < y ? -1 : 0) * dir; });
+    document.querySelector('#tbl tbody').innerHTML = rows.map(a => `<tr><td class="name"><a href="#${a.id}">${esc(a.name)}</a></td>
+      <td class="num">${esc(a.health || '?')}</td><td>${esc(a.armor || '—')}</td><td>${esc(a.weakness || '—')}</td><td>${esc(a.attack || '—')}</td><td>${esc(QUICK[a.id] || '')}</td></tr>`).join('');
+  }
+  draw();
+  document.getElementById('list').innerHTML = A.map(a => `<details class="item" id="${a.id}"><summary><span class="sum-title">${esc(a.name)}</span>
+    <span class="tags"><span class="tag hi">${esc(a.health || '?')} HP</span><span class="tag">${esc(a.armor || '?')} armor</span></span></summary>
+    <div class="body"><dl class="kv"><dt>Weak points</dt><dd>${esc(a.weakness || '—')}</dd><dt>Attack</dt><dd>${esc(a.attack || '—')}</dd>
+      <dt>Abilities</dt><dd>${esc(a.ability || '—')}</dd><dt>XP</dt><dd>${esc(a.xp || '—')}</dd></dl>
+      ${QUICK[a.id] ? `<p class="note"><b>Quick kill:</b> ${esc(QUICK[a.id])}</p>` : ''}
+      ${a.attackText ? `<p><b>How it attacks:</b> ${esc(a.attackText)}</p>` : ''}
+      ${a.tips ? `<p><b>Combat tips:</b> ${esc(a.tips)}</p>` : ''}</div></details>`).join('');
+  const P = (window.REF_AMMO || {}).ammo || {};
+  document.getElementById('pen').innerHTML = Object.entries(P).map(([ammo, list]) => `<div class="card"><h3>${esc(ammo)}</h3>
+    <ul class="clean">${list.map(x => `<li>${esc(x.weapon)}: <b>${esc(x.penetration)}</b></li>`).join('')}</ul></div>`).join('') || '<p class="muted">Ammo data not loaded.</p>';
+})();
+</script>
+
+</main>
+</body>
+</html>
