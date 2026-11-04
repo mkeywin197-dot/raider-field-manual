@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<script src="data/img.js"></script>
 <script src="data/guides.js"></script>
 <script src="data/weapons.js"></script>
 <script src="data/arc.js"></script>
@@ -41,7 +42,7 @@
     <div class="card flag"><h3>The short answer</h3>
       <p>All four room modules are <b>the same in game terms</b>. Each has 22 furniture slots and one wall spot for a weapon rack. They only differ in looks, so pick the ones you like.</p>
       <p><b>Choices are permanent.</b> You can't swap a room module after it's built.</p></div>
-    <div class="card"><h3>Base room</h3><dl class="kv"><dt>Furniture</dt><dd>42 slots</dd><dt>Stations</dt><dd>8 slots</dd><dt>Weapon racks</dt><dd>6 wall spots (4 grouped, 2 in the bedroom area; one is easy to miss)</dd><dt>Doors</dt><dd>2, for modules</dd></dl></div>
+    <div class="card"><img class="portrait" style="max-width:100%" src="img/rooms/base.jpg" alt="Outpost base room" loading="lazy"><h3>Base room</h3><dl class="kv"><dt>Furniture</dt><dd>42 slots</dd><dt>Stations</dt><dd>8 slots</dd><dt>Weapon racks</dt><dd>6 wall spots (4 grouped, 2 in the bedroom area; one is easy to miss)</dd><dt>Doors</dt><dd>2, for modules</dd></dl></div>
     <div class="card"><h3>Our pick</h3><ol class="clean">
       <li><b>Room 2:</b> Chalet, the coziest.</li><li><b>Room 3:</b> Panoramic, one big open floor that's easy to arrange.</li>
       <li><b>Room 4:</b> Studious, the big round hall with a skylight. It's reported to appear only for the last expansion, so leave that slot for it.</li></ol>
@@ -78,10 +79,10 @@
 
 <script>
 (() => {
-  const { esc } = RFM, O = ARC.outpost;
+  const { esc, img, pic } = RFM, O = ARC.outpost;
   document.getElementById('unlock-list').innerHTML = O.unlock.map((u, i) => `<li><span class="pts">Stage ${i + 1}</span><span><b>${esc(u[0])}</b><br>${esc(u[1])}<br><span class="muted">Reward: ${esc(u[2])}</span></span></li>`).join('');
   document.getElementById('order-list').innerHTML = O.order.map((s, i) => `<li class="${i === O.order.length - 1 ? 'cap' : ''}"><span class="pts">Step ${i + 1}</span><span>${esc(s)}</span></li>`).join('');
-  document.getElementById('mods').innerHTML = O.modules.map(m => `<tr><td class="name">${esc(m[0])}</td><td>${esc(m[1])}</td><td>${esc(m[2])}</td></tr>`).join('');
+  document.getElementById('mods').innerHTML = O.modules.map(m => `<tr><td class="name">${pic(img('rooms', m[0].toLowerCase()), m[0] + ' room', 'room-pic')}${esc(m[0])}</td><td>${esc(m[1])}</td><td>${esc(m[2])}</td></tr>`).join('');
   document.getElementById('roomcost').innerHTML = O.rooms.map(r => `<tr><td class="name">Room ${r[0]}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('');
   document.getElementById('rs').innerHTML = (ARC.benches['Research Station'] || []).map(l => `<tr><td class="name">Level ${l.level}</td><td>${esc(l.requires.join(', '))}</td></tr>`).join('');
   document.getElementById('rp').innerHTML = O.rp.map(r => `<tr><td>${esc(r[0])}</td><td class="num">${r[1]}</td></tr>`).join('');

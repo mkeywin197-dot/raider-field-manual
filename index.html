@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<script src="data/img.js"></script>
 <script src="data/guides.js"></script>
 <script src="data/weapons.js"></script>
 <script src="data/arc.js"></script>
@@ -37,13 +38,15 @@
   <div class="grid" id="secs"></div>
 </section>
 <script>
+const PICS = { 'weapons.html': 'guns/anvil', 'arc.html': 'arc/bastion', 'maps.html': 'maps/dam', 'benches.html': 'benches/gunsmith_3', 'outpost.html': 'rooms/chalet', 'traders.html': 'traders/celeste', 'endgame.html': 'arc/queen', 'items.html': 'items/arc_alloy', 'gear.html': 'items/medium_shield', 'quests.html': 'traders/shani', 'skills.html': 'arc/leaper', 'guides.html': 'arc/snitch' };
 const S = [['weapons.html','Guns','26 guns: stats, upgrade costs I–IV, and every Amplified Level V option.'],['arc.html','ARC','25 machines: HP, armor, weak points and how to kill each one, plus ammo vs armor.'],
  ['skills.html','Skill builds','PvP, PvE and Mix, point by point, with Expedition bonus points and a squad role planner.'],['maps.html','Maps','High-loot areas, keys, exits and every map condition.'],
  ['benches.html','Benches','Every bench level and its materials, plus a material shopping list.'],['outpost.html','Outpost','Unlock, build order, which room goes where, Research Station and storage layout.'],
  ['quests.html','Quests','Every trader quest: objectives, items to keep and rewards.'],['items.html','Items','Keep, sell or recycle 500+ items, and what needs each one.'],
  ['gear.html','Gear','Shields, augments, weapon mods, grenades, gadgets and ammo.'],['traders.html','Traders','Trader stock, Celeste\'s seed barters and Scrappy upgrades.'],
  ['endgame.html','Endgame','Fallen Emperor, Frigate full clear, Queen, Matriarch and Harvester.'],['guides.html','Guides','Beginner guide, controller settings, events and the patch log.']];
-document.getElementById('secs').innerHTML = S.map(s => `<a class="card" href="${s[0]}" style="text-decoration:none"><h3>${s[1]}</h3><p class="muted">${s[2]}</p></a>`).join('');
+document.getElementById('secs').innerHTML = S.map(s => { const [k, id] = (PICS[s[0]] || '/').split('/'); const src = RFM.img(k, id);
+  return `<a class="card" href="${s[0]}" style="text-decoration:none;padding:0;overflow:hidden">${src ? `<div style="aspect-ratio:16/9;background:#0b0e12;display:grid;place-items:center;overflow:hidden"><img src="${src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:${k === 'guns' || k === 'items' || k === 'benches' ? 'contain' : 'cover'}"></div>` : ''}<div style="padding:0 18px 18px;display:grid;gap:8px"><h3>${s[1]}</h3><p class="muted">${s[2]}</p></div></a>`; }).join('');
 </script>
 
 </main>

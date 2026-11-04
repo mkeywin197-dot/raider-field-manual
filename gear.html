@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<script src="data/img.js"></script>
 <script src="data/guides.js"></script>
 <script src="data/weapons.js"></script>
 <script src="data/arc.js"></script>
@@ -43,7 +44,7 @@
 <p class="muted" style="font-size:.85rem">Source: RaidTheory arcraiders-data (MIT, data up to Aug 2026) and the ARC Raiders Wiki. Frozen Trail gadgets are described from the official 2.0 preview and patch notes.</p>
 <script>
 (() => {
-  const { esc } = RFM, G = (window.REF_GEAR || {}).gear || [];
+  const { esc, itemImg, pic } = RFM, G = (window.REF_GEAR || {}).gear || [];
   const types = [...new Set(G.map(g => g.type))]; let t = 'Shield';
   const tb = document.getElementById('tabs');
   tb.innerHTML = types.map(x => `<button class="chip" data-t="${esc(x)}">${esc(x === 'Modification' ? 'Weapon mods' : x)}</button>`).join('');
@@ -54,7 +55,7 @@
     tb.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.t === t));
     const f = document.getElementById('f').value.toLowerCase();
     const rows = G.filter(g => g.type === t && (!f || JSON.stringify(g).toLowerCase().includes(f))).sort((a, b) => (RK[a.rarity] || 0) - (RK[b.rarity] || 0) || a.name.localeCompare(b.name));
-    document.getElementById('rows').innerHTML = rows.map(g => `<tr><td><b>${esc(g.name)}</b></td><td>${esc(g.rarity || '')}</td>
+    document.getElementById('rows').innerHTML = rows.map(g => `<tr><td><span class="with-pic">${pic(itemImg(g.name), g.name)}<b>${esc(g.name)}</b></span></td><td>${esc(g.rarity || '')}</td>
       <td>${g.desc ? esc(g.desc) : ''}${g.effects && g.effects.length ? `<ul class="clean" style="margin-top:6px">${g.effects.map(e => `<li>${esc(e.label)}${e.value !== '' && e.value != null ? ': <b>' + esc(e.value) + '</b>' : ''}</li>`).join('')}</ul>` : ''}${g.compat && g.compat.length ? `<div class="muted" style="font-size:.85rem">Fits: ${esc(g.compat.join(', '))}</div>` : ''}</td>
       <td>${g.bench ? esc(g.bench + ' ' + (g.benchLevel || '')) : '—'}${g.blueprint ? '<br><span class="tag">Blueprint</span>' : ''}</td>
       <td>${g.recipe && Object.keys(g.recipe).length ? Object.entries(g.recipe).map(([n, q]) => `${esc(n)} ×${q}`).join(', ') : '—'}</td>

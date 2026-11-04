@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<script src="data/img.js"></script>
 <script src="data/guides.js"></script>
 <script src="data/weapons.js"></script>
 <script src="data/arc.js"></script>
@@ -52,11 +53,23 @@
 
 <script>
 (() => {
-  const { esc } = RFM, M = ARC.maps;
+  const { esc, img } = RFM, M = ARC.maps;
+  const MAPIMG = { dam: [['dam', 'Dam Battlegrounds']], buried: [['buried', 'Buried City']], spaceport: [['spaceport', 'Acerra Spaceport']],
+    bluegate: [['bluegate', 'The Blue Gate']], stella: [['stella-upper', 'Stella Montis, upper level'], ['stella-lower', 'Stella Montis, lower level']],
+    riven: [['riven', 'Riven Tides']], pendola: [['pendola', 'Pendola Pass']] };
+  // Pendola Pass has no labeled community map yet, so we only mark what we can see for certain.
+  const PENDOLA_MARKS = [[25, 52, 'Fallen Emperor'], [73, 36, 'Observatory (likely)']];
+  function mapFig(id) {
+    return (MAPIMG[id] || []).map(([k, cap]) => { const src = img('maps', k); if (!src) return '';
+      const marks = id === 'pendola' ? PENDOLA_MARKS.map(m => `<span class="mark" style="left:${m[0]}%;top:${m[1]}%">${esc(m[2])}</span>`).join('') : '';
+      return `<figure class="map-fig"><a href="${src}" target="_blank" rel="noopener" class="photo" style="position:relative">
+        <img src="${src}" alt="${esc(cap)} map" loading="lazy">${marks}</a>
+        <figcaption>${esc(cap)}. ${id === 'pendola' ? 'No labeled community map exists yet. For key rooms and loot spots, use an interactive map such as <a href="https://mapgenie.io/arc-raiders/maps/pendola-pass">MapGenie</a>.' : 'Key icons mark the key rooms. <b>Red outlines</b> are the top-tier loot zones and <b>yellow outlines</b> are good loot zones.'}${id === 'pendola' ? ' Map image: ARC Raiders Wiki.' : ' Map by @Cartotect, via the <a href="https://arcraiders.wiki/">ARC Raiders Wiki</a>.'} Tap to open full size.</figcaption></figure>`; }).join('');
+  }
   const R = (window.REF_CONDITIONS || {}), diff = R.normalDifficulty || {};
-  document.getElementById('maps').innerHTML = M.map(m => `<details class="item" id="${m.id}" open><summary><span class="sum-title">${esc(m.name)}</span>
+  document.getElementById('maps').innerHTML = M.map(m => `<details class="item" id="${m.id}"><summary><span class="sum-title">${esc(m.name)}</span>
     <span class="tags"><span class="tag">Difficulty ${diff[m.name] ?? '?'}/5</span><span class="tag">${esc(m.exits)}</span></span></summary>
-    <div class="body"><p><b>Best for:</b> ${esc(m.best)}</p>
+    <div class="body">${mapFig(m.id)}<p><b>Best for:</b> ${esc(m.best)}</p>
       <div class="grid wide" style="align-items:start">
         <div class="scroll"><table><thead><tr><th>Area</th><th>Why go</th><th>Tier</th></tr></thead><tbody>
           ${m.pois.sort((a, b) => (a[2] === 'high' ? 0 : 1) - (b[2] === 'high' ? 0 : 1)).map(p => `<tr><td><b>${esc(p[0])}</b></td><td>${esc(p[1])}</td><td>${p[2] === 'high' ? '<span class="tag hi">High</span>' : '<span class="tag">Mid</span>'}</td></tr>`).join('')}

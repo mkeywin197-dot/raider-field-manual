@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<script src="data/img.js"></script>
 <script src="data/guides.js"></script>
 <script src="data/weapons.js"></script>
 <script src="data/arc.js"></script>
@@ -43,11 +44,39 @@
   <h2>Every machine</h2>
   <div class="stack" id="list"></div>
 </section>
-<p class="muted" style="font-size:.85rem">Source: ARC Raiders Wiki ARC pages (HP, armor, weak points, combat tips), plus tips from official Embark posts and community guides. Checked 2026-11-03.</p>
+<p class="muted" style="font-size:.85rem">Images: ARC Raiders Wiki. Yellow circles mark the weak spots; we placed them by eye, so they're approximate. Source: ARC Raiders Wiki ARC pages (HP, armor, weak points, combat tips), plus tips from official Embark posts and community guides. Checked 2026-11-03.</p>
 
 <script>
 (() => {
-  const { esc } = RFM, A = ARC.arc;
+  const { esc, img, pic } = RFM, A = ARC.arc;
+  // Weak-spot markers placed by eye on each wiki image: [x%, y%, label]. Notes cover spots the picture can't show.
+  const WEAK = {
+    bastion: { s: [[25.8,49,'Leg joint'],[27.8,57.4,'Leg joint'],[59.7,61.5,'Leg joint'],[73.4,58,'Leg joint']], n: 'The rear canister is on its back (not visible here). Breaking it peels back the rear plate and exposes the real weak spot.' },
+    bombardier: { s: [[52,49,'Leg joint'],[67,61.5,'Leg joint'],[81,60,'Leg joint']], n: 'Rear canister on its back (not visible here). Kill the two Spotters first.' },
+    leaper: { s: [[48.6,54.7,'Eye'],[33.6,28,'Leg joint'],[61.7,24,'Leg joint']] },
+    hornet: { s: [[29.7,41,'Thruster'],[60,24.5,'Thruster'],[68.8,45,'Thruster'],[44.5,60,'Thruster']], n: 'The front is armored. The rear thrusters are not.' },
+    queen: { s: [[47.6,34.7,'Core (under plates)'],[8.6,43,'Leg joint'],[14.8,52.8,'Leg joint'],[76.5,45.8,'Leg joint'],[93.7,51.4,'Leg joint']], n: 'Strip the armor plates to expose the red core. The best loot is in the legs.' },
+    matriarch: { s: [[44.5,28,'Core (red)'],[29.7,27.4,'Leg joint'],[29.7,53.3,'Leg joint'],[81,51,'Leg joint']] },
+    rocketeer: { s: [[29.7,22,'Thruster'],[25,41.3,'Thruster'],[87.5,47.3,'Thruster'],[55,57.4,'Scanner']] },
+    firefly: { s: [[48.75,60.6,'Fuel tank'],[45.3,36.6,'Thruster'],[71,48.4,'Thruster']] },
+    vaporizer: { s: [[23.3,36.7,'Thruster'],[62.5,24.4,'Thruster'],[73.3,34.4,'Thruster'],[51.7,64.4,'Underside thruster']], n: 'Bait its shield by throwing anything, then hit it during the cooldown.' },
+    sentinel: { s: [[61.7,57.8,'Capsule']] },
+    bully: { s: [[33.9,53.8,'Leg joint'],[50.8,50,'Leg joint'],[70,63.4,'Leg joint'],[54,22,'Head (while shooting)']] },
+    wasp: { s: [[14,47,'Thruster'],[40,35.4,'Thruster'],[52.3,70.8,'Thruster'],[28,78,'Thruster']] },
+    arc_turbine: { s: [[44.5,75,'Landing gear (once landed)']] },
+    fireball: { s: [[71.9,50,'Core (opens to attack)']] },
+    snitch: { s: [[43.8,41.3,'Thruster'],[64,55.5,'Thruster'],[38.3,60.7,'Thruster']] },
+    spotter: { s: [[68.8,24.5,'Thruster']] },
+    arc_surveyor: { s: [[47.9,52.7,'Core (opens when it fires its laser)']] },
+    comet: { s: [[51.6,60.2,'Core']] }
+  };
+  function photo(a) {
+    const src = img('arc', a.id); if (!src) return '';
+    const w = WEAK[a.id];
+    const spots = w ? w.s.map((p, i) => `<span class="spot" data-n="${i + 1}" style="left:${p[0]}%;top:${p[1]}%" aria-hidden="true"></span>`).join('') : '';
+    const legend = w ? `<div class="spot-legend">${w.s.map((p, i) => `<span><b>${i + 1}</b>${esc(p[2])}</span>`).join('')}</div>` : '';
+    return `<div class="stack"><div class="photo"><img src="${src}" alt="${esc(a.name)}${w ? ' with weak spots marked' : ''}" loading="lazy">${spots}</div>${legend}${w && w.n ? `<p class="muted" style="font-size:.88rem">${esc(w.n)}</p>` : ''}</div>`;
+  }
   const QUICK = {
     tick: 'Dodge roll as soon as it latches on. Any gun kills it.', pop: 'Climb out of reach, or roll over it to bait the blast.',
     snitch: 'Kill it fast or it calls 2 Wasps and a Hornet.', spotter: 'Kill the Spotters first to blind the Bombardier.',
@@ -79,17 +108,17 @@
     const rows = A.filter(a => filter === 'All' || (a.armor || 'Unknown') === filter).sort((a, b) => {
       const x = key === 'health' ? hp(a) : String(a[key] || '').toLowerCase(), y = key === 'health' ? hp(b) : String(b[key] || '').toLowerCase();
       return (x > y ? 1 : x < y ? -1 : 0) * dir; });
-    document.querySelector('#tbl tbody').innerHTML = rows.map(a => `<tr><td class="name"><a href="#${a.id}">${esc(a.name)}</a></td>
+    document.querySelector('#tbl tbody').innerHTML = rows.map(a => `<tr><td class="name"><a class="with-pic" href="#${a.id}">${pic(img('arc', a.id), a.name)}${esc(a.name)}</a></td>
       <td class="num">${esc(a.health || '?')}</td><td>${esc(a.armor || '—')}</td><td>${esc(a.weakness || '—')}</td><td>${esc(a.attack || '—')}</td><td>${esc(QUICK[a.id] || '')}</td></tr>`).join('');
   }
   draw();
-  document.getElementById('list').innerHTML = A.map(a => `<details class="item" id="${a.id}"><summary><span class="sum-title">${esc(a.name)}</span>
+  document.getElementById('list').innerHTML = A.map(a => `<details class="item" id="${a.id}"><summary>${pic(img('arc', a.id), a.name, 'thumb lg')}<span class="sum-title">${esc(a.name)}</span>
     <span class="tags"><span class="tag hi">${esc(a.health || '?')} HP</span><span class="tag">${esc(a.armor || '?')} armor</span></span></summary>
-    <div class="body"><dl class="kv"><dt>Weak points</dt><dd>${esc(a.weakness || '—')}</dd><dt>Attack</dt><dd>${esc(a.attack || '—')}</dd>
+    <div class="body"><div class="grid wide" style="align-items:start">${photo(a)}<div class="stack"><dl class="kv"><dt>Weak points</dt><dd>${esc(a.weakness || '—')}</dd><dt>Attack</dt><dd>${esc(a.attack || '—')}</dd>
       <dt>Abilities</dt><dd>${esc(a.ability || '—')}</dd><dt>XP</dt><dd>${esc(a.xp || '—')}</dd></dl>
       ${QUICK[a.id] ? `<p class="note"><b>Quick kill:</b> ${esc(QUICK[a.id])}</p>` : ''}
       ${a.attackText ? `<p><b>How it attacks:</b> ${esc(a.attackText)}</p>` : ''}
-      ${a.tips ? `<p><b>Combat tips:</b> ${esc(a.tips)}</p>` : ''}</div></details>`).join('');
+      ${a.tips ? `<p><b>Combat tips:</b> ${esc(a.tips)}</p>` : ''}</div></div></div></details>`).join('');
   const P = (window.REF_AMMO || {}).ammo || {};
   document.getElementById('pen').innerHTML = Object.entries(P).map(([ammo, list]) => `<div class="card"><h3>${esc(ammo)}</h3>
     <ul class="clean">${list.map(x => `<li>${esc(x.weapon)}: <b>${esc(x.penetration)}</b></li>`).join('')}</ul></div>`).join('') || '<p class="muted">Ammo data not loaded.</p>';

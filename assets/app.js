@@ -75,7 +75,11 @@
 
   function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); }
-  window.RFM = { esc, slug };
+  const IMG = window.IMG || {};
+  function img(kind, id) { return (IMG[kind] || {})[id] || ''; }
+  function itemImg(name) { return img('items', String(name || '').toLowerCase().replace(/['’.]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '')); }
+  function pic(src, alt, cls) { return src ? `<img class="${cls || 'thumb'}" src="${src}" alt="${esc(alt)}" loading="lazy" decoding="async">` : ''; }
+  window.RFM = { esc, slug, img, itemImg, pic };
   // Open a linked <details> when arriving via #anchor.
   function openHash() { const el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1))); if (el && el.tagName === 'DETAILS') el.open = true; }
   window.addEventListener('hashchange', openHash); window.addEventListener('load', () => setTimeout(openHash, 0));

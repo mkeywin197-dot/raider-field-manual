@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<script src="data/img.js"></script>
 <script src="data/guides.js"></script>
 <script src="data/weapons.js"></script>
 <script src="data/arc.js"></script>
@@ -42,15 +43,15 @@
 
 <script>
 (() => {
-  const { esc, slug } = RFM, Bn = ARC.benches;
+  const { esc, slug, img, pic, itemImg } = RFM, Bn = ARC.benches;
   const ITEMS = Object.fromEntries(((window.REF_ITEMS || {}).items || []).map(i => [i.name.toLowerCase(), i]));
   const find = n => ITEMS[n.toLowerCase()] || ITEMS[n.toLowerCase() + 's'] || ITEMS[n.toLowerCase().replace(/s$/, '')];
   const ARC_PART = /(Driver|Core|Cell|Pod|Vault|Trigger|Scanner|Pulse Unit|Burner|Targeter|Fragmenter|Inductor|Modulator)$/;
   document.getElementById('benches').innerHTML = Object.entries(Bn).map(([name, levels]) => `<details class="item" id="${slug(name)}" open>
     <summary><span class="sum-title">${esc(name)}</span><span class="tags"><span class="tag">${levels.length} level${levels.length > 1 ? 's' : ''}</span>${name === 'Research Station' ? '<span class="tag hi">Outpost</span>' : ''}</span></summary>
     <div class="body"><div class="scroll"><table><thead><tr><th>Level</th><th>Materials</th><th>Unlocks crafting</th></tr></thead><tbody>
-      ${levels.map(l => `<tr><td class="name">${esc(name)} ${l.level}</td><td>${l.requires.map(r => { const n = r.replace(/^\d+\s+/, '');
-        return `<div>${esc(r)}${ARC_PART.test(n) ? ' <span class="tag hi">ARC part</span>' : ''}</div>`; }).join('')}</td>
+      ${levels.map(l => `<tr><td class="name"><span class="with-pic">${pic(img('benches', slug(name).replace(/-/g, '_') + '_' + l.level), name + ' ' + l.level, 'thumb lg')}${esc(name)} ${l.level}</span></td><td>${l.requires.map(r => { const n = r.replace(/^\d+\s+/, '');
+        return `<div class="with-pic">${pic(itemImg(n), n, 'icon')}${esc(r)}${ARC_PART.test(n) ? ' <span class="tag hi">ARC part</span>' : ''}</div>`; }).join('')}</td>
         <td class="muted">${esc(l.crafts.filter(Boolean).join(', ') || (name === 'Research Station' ? 'Research projects at this tier' : '—'))}</td></tr>`).join('')}
     </tbody></table></div></div></details>`).join('');
 
@@ -69,7 +70,7 @@
     OPTS.filter(o => picked.has(o.id)).forEach(o => o.req.forEach(r => { const m = r.match(/^(\d+)\s+(.+)$/); if (m) t[m[2]] = (t[m[2]] || 0) + +m[1]; }));
     const rows = Object.entries(t).sort((a, b) => b[1] - a[1]);
     document.getElementById('totals').innerHTML = rows.length ? `<div class="scroll"><table><thead><tr><th>Material</th><th>Qty</th><th>Where to find</th></tr></thead><tbody>
-      ${rows.map(([n, q]) => { const it = find(n); return `<tr><td><b>${esc(n)}</b>${ARC_PART.test(n) ? ' <span class="tag hi">ARC part</span>' : ''}</td><td class="num">${q}</td><td class="muted">${esc(it && it.foundIn ? it.foundIn : (ARC_PART.test(n) ? 'Salvage from the matching ARC' : '—'))}</td></tr>`; }).join('')}
+      ${rows.map(([n, q]) => { const it = find(n); return `<tr><td><span class="with-pic">${pic(itemImg(n), n, 'icon')}<b>${esc(n)}</b></span>${ARC_PART.test(n) ? ' <span class="tag hi">ARC part</span>' : ''}</td><td class="num">${q}</td><td class="muted">${esc(it && it.foundIn ? it.foundIn : (ARC_PART.test(n) ? 'Salvage from the matching ARC' : '—'))}</td></tr>`; }).join('')}
       </tbody></table></div><p class="muted" style="font-size:.85rem">${picked.size} upgrade${picked.size === 1 ? '' : 's'} ticked · ${rows.reduce((a, r) => a + r[1], 0)} items total</p>`
       : '<p class="muted">Tick an upgrade to see totals.</p>';
   }

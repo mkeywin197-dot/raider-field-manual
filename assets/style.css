@@ -127,3 +127,27 @@ footer.site .in{max-width:1180px;margin:0 auto;display:grid;gap:6px;padding-left
   ol.steps li{grid-template-columns:1fr;gap:2px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Pictures */
+img.thumb{width:44px;height:44px;object-fit:contain;vertical-align:middle;border-radius:4px;background:var(--panel2);flex:none}
+img.thumb.lg{width:64px;height:64px}
+img.icon{width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:6px}
+.with-pic{display:flex;align-items:center;gap:10px}
+.gun-shot{background:radial-gradient(ellipse at center,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:6px;padding:10px;display:grid;place-items:center}
+.gun-shot img{max-height:180px;width:auto;max-width:100%}
+.photo{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line);max-width:100%;background:#0b0e12}
+.photo img{display:block;width:100%;height:auto}
+.spot{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;border:3px solid var(--signal);
+  box-shadow:0 0 0 3px rgb(0 0 0 / .55),0 0 14px 4px rgb(242 191 29 / .75);pointer-events:none}
+.spot::after{content:attr(data-n);position:absolute;inset:0;display:grid;place-items:center;font:700 .72rem/1 var(--mono);color:#fff;text-shadow:0 0 3px #000}
+.spot-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem}
+.spot-legend b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:2px solid var(--signal);font:700 .7rem/1 var(--mono);margin-right:5px}
+@media (prefers-reduced-motion:no-preference){.spot{animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 3px rgb(0 0 0 / .55),0 0 22px 8px rgb(242 191 29 / .9)}}}
+.map-fig{display:grid;gap:8px;margin:0}
+.map-fig a{display:block}
+.map-fig figcaption{font-size:.84rem;color:var(--muted)}
+.mark{position:absolute;transform:translate(-50%,-100%);background:var(--signal);color:var(--signal-ink);font:700 .72rem/1.2 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 8px rgb(0 0 0 / .5)}
+.mark::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--signal);border-bottom:0}
+.portrait{width:100%;max-width:220px;border-radius:6px;border:1px solid var(--line)}
+.room-pic{width:140px;max-width:100%;border-radius:4px;display:block}

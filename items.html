@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<script src="data/img.js"></script>
 <script src="data/guides.js"></script>
 <script src="data/weapons.js"></script>
 <script src="data/arc.js"></script>
@@ -37,7 +38,7 @@
 <p class="muted" style="font-size:.85rem">Source: RaidTheory arcraiders-data (MIT, data up to Aug 2026). Frozen Trail materials and Soul's Offering needs were added from the ARC Raiders Wiki. Values may have shifted in 2.x patches.</p>
 <script>
 (() => {
-  const { esc } = RFM, I = ((window.REF_ITEMS || {}).items || []).slice().sort((a, b) => a.name.localeCompare(b.name));
+  const { esc, img, pic } = RFM, I = ((window.REF_ITEMS || {}).items || []).slice().sort((a, b) => a.name.localeCompare(b.name));
   const ty = document.getElementById('ty');
   ty.innerHTML = '<option value="">Any type</option>' + [...new Set(I.map(i => i.type))].sort().map(t => `<option>${esc(t)}</option>`).join('');
   const cls = { Keep: 'hi', Use: 'good', Sell: '', Expedition: 'warn' };
@@ -46,7 +47,7 @@
   function draw() {
     const f = document.getElementById('f').value.toLowerCase(), v = document.getElementById('v').value, t = ty.value;
     const rows = I.filter(i => (!f || i.name.toLowerCase().includes(f)) && (!v || i.verdict === v) && (!t || i.type === t));
-    document.getElementById('rows').innerHTML = rows.slice(0, 400).map(i => `<tr id="${i.id}"><td><b>${esc(i.name)}</b></td>
+    document.getElementById('rows').innerHTML = rows.slice(0, 400).map(i => `<tr id="${i.id}"><td><span class="with-pic">${pic(img('items', i.id), i.name)}<b>${esc(i.name)}</b></span></td>
       <td><span class="tag ${cls[i.verdict] || ''}">${esc(i.verdict)}</span></td><td>${esc(i.type)}</td><td>${esc(i.rarity || '')}</td>
       <td class="num">${i.value != null ? i.value.toLocaleString() : '—'}</td>
       <td>${i.recycles && Object.keys(i.recycles).length ? Object.entries(i.recycles).map(([n, q]) => `${esc(n)} ×${q}`).join(', ') : '—'}</td>
